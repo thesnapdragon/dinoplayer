@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1377681317 source:c:\documents and settings\chef\dokumentumok\createjson\main.c
+	<stdio.h>
+	"tinydir.h"
+
+1377681363 c:\documents and settings\chef\dokumentumok\createjson\tinydir.h
+	<errno.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+

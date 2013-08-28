@@ -1,0 +1,17 @@
+node_modules
+dist
+.tmp
+.sass-cache
+app/bower_components
+
+bower.json
+karma-e2e.conf.js
+test
+.bowerrc
+.jshintrc
+app
+.editorconfig
+Gruntfile.js
+karma.conf.js
+package.json
+
