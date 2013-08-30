@@ -24,6 +24,10 @@ Download [install.bat](https://raw.github.com/thesnapdragon/dinoplayer/master/in
 
 *Coming soon*
 
+**Currently supported cloud storages:**
+
+* Dropbox
+
 ## Used technologies
 
 * Workflow: [Yeoman](http://yeoman.io/)

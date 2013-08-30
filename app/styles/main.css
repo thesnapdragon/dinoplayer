@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'FeuraSans-Medium';
+    src: url('FeuraSans-Medium.eot'); /* IE9 Compat Modes */
+    src: url('FeuraSans-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('FeuraSans-Medium.woff') format('woff'), /* Modern Browsers */
+         url('FeuraSans-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('FeuraSans-Medium.svg#svgFontName') format('svg');  /* Legacy iOS */
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    font: normal 10px "FeuraSans-Medium", sans-serif;
+}
+
+#index {
+    height: 100%;
+}
+
+#detailsIframe {
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+.overlay {
+    z-index: 1031;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: -30px;
+}
+
+.overlay > img {
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
