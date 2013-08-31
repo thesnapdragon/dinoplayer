@@ -1,5 +1,5 @@
 {
-    "version": "1.0",
+    "version": "0.1",
     "name": "DinoPlayer",
     "type" : "privileged",
     "launch_path": "/index.html",
@@ -19,6 +19,6 @@
     "installs_allowed_from": ["*"],
     "default_locale": "en",
         "permissions": {
-        "systemXHR":{}
+            "systemXHR":{}
     }
 }

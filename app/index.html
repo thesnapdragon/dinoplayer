@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="styles/shared/style_unstable/drawer.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/lists.css">
         <link rel="stylesheet" type="text/css" href="styles/shared/style/buttons.css">
+        <link rel="stylesheet" href="styles/shared/style/status.css">
 
 </head>
   <body ng-app="dinoplayerApp" ng-controller="MainCtrl" ng-csp hm-swipe-left="nextTrack()" hm-swipe-right="previousTrack()" ng-click="showControl()">
@@ -41,10 +42,10 @@
         <menu type="toolbar">
           <a href="#">OK</a>
         </menu>
-        <h1>Menu</h1>
+        <h1>{{ 'MENU' | translate }}</h1>
       </header>
       <nav>
-        <h2>Playlist</h2>
+        <h2>{{ 'PLAYLIST' | translate }}</h2>
         <ul ng-repeat="track in playlist">
           <li ng-click="backToPlayer($index)"><a href="#">{{track.filename}}</a></li>
         </ul>
@@ -54,7 +55,7 @@
     <section id="drawer" role="region">
       <header class="fixed">
         <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-        <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+        <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
         <h1>DinoPlayer</h1>
       </header>
       <article class="content scrollable header">
@@ -73,9 +74,13 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/filters/timeFilter.js"></script>
+    <script src="scripts/directives/myFrame.js"></script>
+    <script src="scripts/directives/overlayController.js"></script>
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
+        <script src="scripts/status.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
@@ -89,16 +94,11 @@
         <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
-<!--
-        <script src="bower_components/bootstrap-custom/ui-bootstrap-custom-0.5.0.min.js"></script>
--->
         <script src="bower_components/bootstrap-custom/ui-bootstrap-custom-tpls-0.5.0.min.js"></script>
-        <script src="scripts/filters/timeFilter.js"></script>
-        <script src="scripts/directives/myFrame.js"></script>
         <script src="bower_components/angular-gestures/gestures.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
         <script src="bower_components/angular-translate-interpolation-default/angular-translate-interpolation-default.js"></script>
-        <script src="scripts/directives/overlayController.js"></script>
+        <script src="scripts/directives/details.js"></script>
         <!-- endbuild -->
 </body>
 </html>

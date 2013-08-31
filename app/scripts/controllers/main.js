@@ -1,10 +1,17 @@
 'use strict';
 
-angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', function($scope, $timeout, $rootScope) {
+angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', function($scope, $timeout, $rootScope, $translate) {
 
     $scope.mediaUrl = "https://dl.dropboxusercontent.com/u/2920832/WaitWhat/";
 
     $scope.init = function(){
+        var language = window.navigator.userLanguage || window.navigator.language;
+        try {
+            $translate.uses(language);
+        } catch (error) {
+            $translate.uses("en-US");
+        }
+
         if ($rootScope.isPlaying == undefined) {
             $rootScope.isPlaying = false;
         }
@@ -19,10 +26,9 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if (typeof(Storage) !== undefined) {
             if (localStorage.dinoPlayerHash == undefined || localStorage.dinoPlayerHash == null) {
                 localStorage.dinoPlayerHash = token();
-                alert(localStorage.dinoPlayerHash);
             }
         } else {
-            alert('ERROR_BROWSER_NOT_SUPPORTED');
+            utils.status.show($translate('ERROR_BROWSER_NOT_SUPPORTED'));
         }
 
         if ($rootScope.authHash == undefined) {
@@ -38,6 +44,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if ($rootScope.trackSwitchedTo > -1) {
             $scope.playTrack($rootScope.trackSwitchedTo);
             $rootScope.trackSwitchedTo = -1;
+            $rootScope.isControlVisible = 0;
         }
     };
 
@@ -51,7 +58,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             http_request.overrideMimeType('application/json');
         }
         if (!http_request) {
-            alert('Cannot create XMLHTTP instance');
+            utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
             return false;
         }
         http_request.onreadystatechange = function() {
@@ -72,9 +79,12 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                     case 'details':
                         $scope.getTrackDetails(http_request.responseText);
                         break;
+                    case 'cover':
+                        $scope.getCover(http_request.responseText);
+                        break;
                 }
             } else {
-                alert('There was a problem with the request.');
+                utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
             }
         }
     };
@@ -83,7 +93,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         try {
             var playlist = JSON.parse(playlist);
         } catch (error) {
-            alert("Error while parsing playlist!");
+            utils.status.show($translate('ERROR_PARSING_PLAYLIST'));
         }
         $rootScope.playlist = new Array();
         for (var i = 0; i < playlist.length; i++) {
@@ -98,7 +108,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $rootScope.playPause = function() {
-        if (!$rootScope.isLoaded) return;
+        if (!$rootScope.isLoaded) {
+            utils.status.show($translate('ERROR_PLAYLIST_NOT_LOADED'));
+            return;
+        }
         if (!$rootScope.isPlaying) {
             $scope.getTrackIframe($rootScope.playlist[$rootScope.trackCounter].filename);
             $rootScope.audio.play();
@@ -114,7 +127,9 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $rootScope.audio.setAttribute('src', $scope.mediaUrl + $rootScope.playlist[$rootScope.trackCounter].filename);
         $rootScope.audio.setAttribute('preload', 'auto');
         $rootScope.progressBar = [0,0];
+        $rootScope.coverUrl = $scope.mediaUrl + "index.html?type=cover&name=" + $rootScope.playlist[$rootScope.trackCounter].filename;
 
+        //~ TODO: volume control
         // Get the HTML5 range input element and append audio volum adjustement on change
         //~ var volume = document.getElementById('volume');
         //~ volume.addEventListener('change', function(){
@@ -150,6 +165,15 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             }
             $rootScope.progressBar[1] = buff;
         }, false);
+
+        // song ended
+        $rootScope.audio.addEventListener('ended', function() {
+            if($rootScope.trackCounter == $rootScope.playlist.length - 1) {
+                //~ TODO: song end
+            } else {
+                $scope.nextTrack();
+            }
+        }, false);
     };
 
     $scope.getTrackIframe = function(name) {
@@ -158,10 +182,11 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $scope.getTrackDetails = function(detailsJson) {
+        var details = null;
         try {
-            var details = JSON.parse(detailsJson);
+            details = JSON.parse(detailsJson);
         } catch (error) {
-            alert("Error while parsing details!" + xhr.response);
+            utils.status.show($translate('ERROR_PARSING_DETAILS'));
         }
         if (details['errors'] != undefined && details.errors.length > 0 && !$rootScope.detailsFetched) {
             $scope.$emit('nosuchvalue', 'error');
@@ -169,6 +194,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             if (!$rootScope.detailsFetched && $rootScope.playlist[$rootScope.trackCounter].filename == details.filename) {
                 $rootScope.playlist[$rootScope.trackCounter].details = details;
                 $rootScope.detailsFetched = true;
+                var getcoverparams = {'artist' : $rootScope.playlist[$rootScope.trackCounter].details.artist,
+                    'album' : $rootScope.playlist[$rootScope.trackCounter].details.album};
+                var url = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=74f369c06f5d9597b9658a7a1cfd62d9&format=json&" + $.param(getcoverparams);
+                $scope.makeRequest(url, 'cover');
             } else {
                 $scope.$emit('nosuchvalue', 'error');
             }
@@ -183,11 +212,24 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $scope.makeRequest(url, 'details');
     };
 
+    $scope.getCover = function(coverJson) {
+        try {
+            var cover = JSON.parse(coverJson);
+        } catch (error) {
+            utils.status.show($translate('ERROR_PARSING_DETAILS'));
+        }
+        if (cover.album != undefined && cover.album.image != undefined) {
+            var img = cover.album.image[cover.album.image.length - 1];
+            $rootScope.playlist[$rootScope.trackCounter].cover = img['#text'];
+        }
+    };
+
     $scope.backToPlayer = function(index) {
         $rootScope.trackSwitchedTo = index;
     };
 
     $scope.showControl = function() {
+        if ($rootScope.isControlVisible == -2) return;
         if ($rootScope.isControlVisible == undefined || $rootScope.isControlVisible == 0) {
             $rootScope.isControlVisible = 1;
             $("#overlayController").fadeIn("fast");
@@ -206,6 +248,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                 $rootScope.isControlVisible = 0;
             }, 3000);
         }
+    };
+
+    $scope.dontShowControl = function() {
+        $rootScope.isControlVisible = -2;
     };
 
     $scope.playTrack = function(index) {
@@ -228,7 +274,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $scope.nextTrack = function() {
-        if ($rootScope.trackCounter < $rootScope.playlist.length -1) {
+        if ($rootScope.trackCounter < $rootScope.playlist.length - 1) {
             $rootScope.trackCounter++;
             $scope.playTrack($rootScope.trackCounter);
         }

@@ -26,7 +26,7 @@ Download [install.bat](https://raw.github.com/thesnapdragon/dinoplayer/master/in
 
 **Currently supported cloud storages:**
 
-* Dropbox
+* [Dropbox](https://www.dropbox.com/)
 
 ## Used technologies
 
@@ -37,3 +37,4 @@ Download [install.bat](https://raw.github.com/thesnapdragon/dinoplayer/master/in
 * [Twitter Bootstrap](http://getbootstrap.com/2.3.2/)
 * [HTML5 Boilerplate](http://html5boilerplate.com/)
 * [AngularJS](http://angularjs.org/)
+* [Last.fm](http://www.last.fm)
