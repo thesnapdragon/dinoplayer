@@ -35,7 +35,7 @@ html, body {
     margin-left: -30px;
 }
 
-.overlay > img {
+.overlaycontrol > img {
     width: 100px;
     height: 100px;
     margin-left: -50px;

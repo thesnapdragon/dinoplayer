@@ -226,10 +226,13 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.backToPlayer = function(index) {
         $rootScope.trackSwitchedTo = index;
+        $scope.dontShowControl();
     };
 
     $scope.showControl = function() {
-        if ($rootScope.isControlVisible == -2) return;
+        if ($rootScope.isControlVisible == -2) {
+            return;
+        }
         if ($rootScope.isControlVisible == undefined || $rootScope.isControlVisible == 0) {
             $rootScope.isControlVisible = 1;
             $("#overlayController").fadeIn("fast");
@@ -255,7 +258,12 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $scope.playTrack = function(index) {
-        $rootScope.audio.pause();
+        var wasPlaying = false;
+        if ($rootScope.isPlaying) {
+            $rootScope.audio.pause();
+            $rootScope.isPlaying = false;
+            wasPlaying = true;
+        }
         $rootScope.trackCounter = index;
         if ($rootScope.playlist[$rootScope.trackCounter].details == undefined) {
             $rootScope.detailsFetched = false;
@@ -263,7 +271,11 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $scope.detailsLoaded();
         }
         $scope.getTrack();
-        $rootScope.audio.play();
+        if (wasPlaying) {
+            $rootScope.audio.play();
+            $rootScope.isPlaying = true;
+            $rootScope.$broadcast('controlchanged');
+        }
     };
 
     $scope.previousTrack = function() {
