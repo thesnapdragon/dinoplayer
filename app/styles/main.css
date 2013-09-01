@@ -51,11 +51,24 @@ html, body {
 }
 
 /*
-FIXES & EXTENSIONS
+EXTENSIONS
 */
 
 section[role="region"] > header:first-child .icon.icon-settings {
     background-image: url(../img/settings.png);
+}
+
+.icon-dropbox {
+    background-image: url(../img/dropbox.png);
+    background-position: center center;
+}
+
+/*
+FIXES
+*/
+
+.btn {
+    width: auto;
 }
 
 .mediaurl-legend {

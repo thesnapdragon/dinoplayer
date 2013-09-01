@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>DinoPlayer Helper</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-Equiv="Cache-Control" Content="no-cache">
+  <meta http-Equiv="Pragma" Content="no-cache">
+  <meta http-Equiv="Expires" Content="0">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript">
@@ -35,6 +38,9 @@ cprt:["copyright"],covr:["picture"],"\u00a9grp":["grouping"],keyw:["keyword"],"\
 
   </script>
   <script type="text/javascript">
+    //~ author: Milán Unicsovics, u.milan at gmail dot com
+    //~ description: DinoPlayer Helper
+
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -51,10 +57,11 @@ cprt:["copyright"],covr:["picture"],"\u00a9grp":["grouping"],keyw:["keyword"],"\
                 ID3.loadTags(track, function() {
                     var tags = ID3.getAllTags(track);
                     var details = '{'
-                      + '"album":"' + tags.album + '",'
-                      + '"artist":"' + tags.artist + '",'
-                      + '"title":"' + tags.title + '",'
-                      + '"track":"' + tags.track + '"}';
+                      + '"filename":"' + track + '",'
+                      + '"album":"' + tags.album.replace(/[^\w\s]/gi, '') + '",'
+                      + '"artist":"' + tags.artist.replace(/[^\w\s]/gi, '') + '",'
+                      + '"title":"' + tags.title.replace(/[^\w\s]/gi, '') + '",'
+                      + '"track":"' + tags.track.replace(/[^\w\s]/gi, '') + '"}';
                     var sendData = new Image();
                     var hash = getParameterByName("hash");
                     sendData.src="http://thesnapdragon.herokuapp.com/storeTrackDetails?hash=" + hash + "&details=" + encodeURIComponent(details);

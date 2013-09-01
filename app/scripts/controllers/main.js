@@ -53,7 +53,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         }
 
         if (!$rootScope.isLoaded && ($rootScope.settings.mediaurl != undefined || $rootScope.settings.mediaurl != null)) {
-            $scope.makeRequest($rootScope.settings.mediaurl + "list.json", 'list');
+            $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
         }
     };
 
@@ -141,7 +141,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.getTrack = function() {
         $rootScope.audio = new Audio();
-        $rootScope.audio.setAttribute('src', $rootScope.settings.mediaurl + $rootScope.playlist[$rootScope.trackCounter].filename);
+        $rootScope.audio.setAttribute('src', $rootScope.settings.serviceurl + $rootScope.settings.mediaurl + $rootScope.playlist[$rootScope.trackCounter].filename);
         $rootScope.audio.setAttribute('preload', 'auto');
         $rootScope.progressBar = [0,0];
 
@@ -196,7 +196,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.getTrackIframe = function(name) {
         var iframe = document.getElementById("detailsIframe");
-        iframe.src = $rootScope.settings.mediaurl + 'index.html?type=track&hash=' + $rootScope.authHash + '&name=' + name;
+        iframe.src = $rootScope.settings.serviceurl + $rootScope.settings.mediaurl + 'index.html?type=track&hash=' + $rootScope.authHash + '&name=' + name;
     };
 
     $scope.getTrackDetails = function(detailsJson) {
@@ -234,7 +234,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         try {
             var cover = JSON.parse(coverJson);
         } catch (error) {
-            utils.status.show($translate('ERROR_PARSING_DETAILS'));
+            utils.status.show($translate('ERROR_PARSING_COVER'));
         }
         if (cover.album != undefined && cover.album.image != undefined) {
             var img = cover.album.image[cover.album.image.length - 1];
@@ -325,15 +325,30 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.closeSettings = function(save) {
         $scope.isSettingsVisible = false;
-        if (save && $scope.lastSettings != JSON.stringify($rootScope.settings)) {
-            localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
-            $scope.makeRequest($rootScope.settings.mediaurl + "list.json", 'list');
-        } else {
-            try {
-                $rootScope.settings = JSON.parse($scope.lastSettings);
-            } catch(error) {
-                utils.status.show($translate('ERROR_PARSING_SETTINGS'));
+        if (save) {
+            if ($scope.lastSettings != JSON.stringify($rootScope.settings)) {
+                // fix mediaurl if needed
+                if ($rootScope.settings.mediaurl[$rootScope.settings.mediaurl.length - 1] != '/') {
+                    $rootScope.settings.mediaurl += '/';
+                }
+                localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
+                $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
+            } else {
+                try {
+                    $rootScope.settings = JSON.parse($scope.lastSettings);
+                } catch(error) {
+                    utils.status.show($translate('ERROR_PARSING_SETTINGS'));
+                }
             }
+        }
+    };
+
+    $scope.setService = function(service) {
+        switch(service) {
+            case 'dropbox':
+                $rootScope.settings.service = service;
+                $rootScope.settings.serviceurl = "https://dl.dropboxusercontent.com/u/";
+                break;
         }
     };
 }]);
