@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>DinoPlayer</title>
@@ -69,19 +69,30 @@
                 <h3>{{ 'SETTINGS' | translate }}</h3>
             </div>
             <div class="modal-body">
-                {{'SERVICE_SELECT' | translate}} <br/>
+                {{ 'SERVICE_SELECT' | translate }} <br/>
                 <button class="btn btn-large" id="dropbox-service" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
 
-                {{'MEDIA_SELECT' | translate}}
+                <span ng-show="settings.service != undefined">
+                    {{ 'MEDIA_SELECT' | translate }}
+                    <fieldset>
+                        <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
+                        <section class="mediaurl-section">
+                            <p>
+                                <input type="text" ng-model="settings.mediaurl">
+                            </p>
+                        </section>
+                    </fieldset>
+                </span>
 
-                <fieldset ng-show="settings.service != undefined">
-                    <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
-                    <section class="mediaurl-section">
-                        <p>
-                            <input type="text" ng-model="settings.mediaurl">
-                        </p>
-                    </section>
-                </fieldset>
+                <h2>{{ 'HELP' | translate }}</h2>
+                    <dl class="dl-horizontal">
+                        <dt><img alt="playPause" src="img/tap.png" /></dt>
+                        <dd>{{ 'HELP_PLAYPAUSE' | translate }}</dd>
+                        <dt><img alt="nextTrack" src="img/swipe-left.png" /></dt>
+                        <dd>{{ 'HELP_NEXTTRACK' | translate }}</dd>
+                        <dt><img alt="previousTrack" src="img/swipe-right.png" /></dt>
+                        <dd>{{ 'HELP_PREVIOUSTRACK' | translate }}</dd>
+                    </dl>
             </div>
             <div class="modal-footer">
                 <button class="btn cancel" ng-click="closeSettings(true)">{{ 'SAVE' | translate }}</button>
@@ -108,19 +119,6 @@
 
         <!-- build:js scripts/plugins.js -->
         <script src="scripts/status.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
         <script src="bower_components/bootstrap-custom/ui-bootstrap-custom-tpls-0.5.0.min.js"></script>
         <script src="bower_components/angular-gestures/gestures.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>

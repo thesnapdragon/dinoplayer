@@ -50,6 +50,15 @@ html, body {
     height: 240px;
 }
 
+.dl-horizontal dt {
+    width: auto !important;
+}
+
+.dl-horizontal dd {
+    margin-left: 5rem;
+    line-height: 4rem;
+}
+
 /*
 EXTENSIONS
 */
