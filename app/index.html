@@ -14,18 +14,19 @@
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="styles/bootstrap.css">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" type="text/css" href="styles/shared/transitions.css">
-        <link rel="stylesheet" type="text/css" href="styles/shared/util.css">
-        <link rel="stylesheet" type="text/css" href="styles/shared/cross_browser.css">
+        <link rel="stylesheet" href="styles/shared/transitions.css">
+        <link rel="stylesheet" href="styles/shared/util.css">
+        <link rel="stylesheet" href="styles/shared/cross_browser.css">
         <!-- endbuild -->
-        <link rel="stylesheet" type="text/css" href="styles/shared/style/headers.css">
+        <link rel="stylesheet" href="styles/shared/style/headers.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/drawer.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/lists.css">
-        <link rel="stylesheet" type="text/css" href="styles/shared/style/buttons.css">
+        <link rel="stylesheet" href="styles/shared/style/buttons.css">
         <link rel="stylesheet" href="styles/shared/style/status.css">
+        <link rel="stylesheet" href="styles/shared/style/input_areas.css">
 
 </head>
-  <body ng-app="dinoplayerApp" ng-controller="MainCtrl" ng-csp hm-swipe-left="nextTrack()" hm-swipe-right="previousTrack()" ng-click="showControl()">
+  <body ng-app="dinoplayerApp" ng-controller="MainCtrl" ng-csp hm-swipe-left="nextTrack()" hm-swipe-right="previousTrack()">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -52,14 +53,35 @@
       </nav>
     </section>
 
-    <section id="drawer" role="region">
+    <section id="drawer" class="skin-dark" role="region">
       <header class="fixed">
         <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
         <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
+        <menu type="toolbar">
+              <a ng-click="openSettings()"><span class="icon icon-settings">settings</span></a>
+        </menu>
         <h1>DinoPlayer</h1>
       </header>
-      <article class="content scrollable header">
+      <article class="content scrollable header" ng-click="showControl()">
         <overlay-controller id="overlayController" is-playing="isPlaying" class="hide"></overlay-controller>
+        <div class="settings hide" modal="isSettingsVisible!=undefined && isSettingsVisible" close="closeSettings(false)" options="settingsOptions">
+            <div class="modal-header">
+                <h3>{{ 'SETTINGS' | translate }}</h3>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
+                <section class="mediaurl-section">
+                  <p>
+                    <input type="text" ng-model="settings.mediaurl">
+                  </p>
+                </section>
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" ng-click="closeSettings(true)">{{ 'SAVE' | translate }}</button>
+            </div>
+        </div>
         <div class="text-center" ng-view=""></div>
       </article>
     </section>
@@ -99,6 +121,7 @@
         <script src="bower_components/angular-translate/angular-translate.js"></script>
         <script src="bower_components/angular-translate-interpolation-default/angular-translate-interpolation-default.js"></script>
         <script src="scripts/directives/details.js"></script>
+        <script src="scripts/filters/titleFilter.js"></script>
         <!-- endbuild -->
 </body>
 </html>

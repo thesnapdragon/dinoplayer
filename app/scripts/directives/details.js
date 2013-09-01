@@ -12,8 +12,8 @@ angular.module('dinoplayerApp').directive('details', function () {
             '<strong>{{track.filename}}</strong>' +
             '</span>' +
             '<span ng-switch-default>' +
-            '<p>{{track.details.artist}} - {{track.details.album}}</p>' +
-            '<strong>{{track.details.title}}</strong>' +
+            '<p>{{track.details.artist | titleFilter}} - {{track.details.album | titleFilter}}</p>' +
+            '<strong>{{track.details.title | titleFilter}}</strong>' +
             '</span>' +
             '</div>'
     };

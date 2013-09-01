@@ -2,9 +2,15 @@
 
 angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', function($scope, $timeout, $rootScope, $translate) {
 
-    $scope.mediaUrl = "https://dl.dropboxusercontent.com/u/2920832/WaitWhat/";
+    //~ $scope.mediaUrl = "https://dl.dropboxusercontent.com/u/2920832/WaitWhat/";
+    $scope.isSettingsVisible = false;
+    $scope.settingsOptions = {
+        backdropFade: true,
+        dialogFade:true
+    };
 
-    $scope.init = function(){
+    $scope.init = function() {
+        // set language
         var language = window.navigator.userLanguage || window.navigator.language;
         try {
             $translate.uses(language);
@@ -16,6 +22,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $rootScope.isPlaying = false;
         }
 
+        // set hash to handle details with server
         var rand = function() {
             return Math.random().toString(36).substr(2);
         };
@@ -23,6 +30,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         var token = function() {
             return rand() + rand() + rand() + rand();
         };
+
         if (typeof(Storage) !== undefined) {
             if (localStorage.dinoPlayerHash == undefined || localStorage.dinoPlayerHash == null) {
                 localStorage.dinoPlayerHash = token();
@@ -35,8 +43,17 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $rootScope.authHash = localStorage.dinoPlayerHash;
         }
 
-        if (!$rootScope.isLoaded) {
-            $scope.makeRequest($scope.mediaUrl + "list.json", 'list');
+        // handle settings
+        if ($rootScope.settings == undefined) {
+            if (localStorage.dinoPlayerSettings != undefined) {
+                $rootScope.settings = JSON.parse(localStorage.dinoPlayerSettings);
+            } else {
+                $rootScope.settings = { "mediaurl": "" };
+            }
+        }
+
+        if (!$rootScope.isLoaded && ($rootScope.settings.mediaurl != undefined || $rootScope.settings.mediaurl != null)) {
+            $scope.makeRequest($rootScope.settings.mediaurl + "list.json", 'list');
         }
     };
 
@@ -124,10 +141,9 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.getTrack = function() {
         $rootScope.audio = new Audio();
-        $rootScope.audio.setAttribute('src', $scope.mediaUrl + $rootScope.playlist[$rootScope.trackCounter].filename);
+        $rootScope.audio.setAttribute('src', $rootScope.settings.mediaurl + $rootScope.playlist[$rootScope.trackCounter].filename);
         $rootScope.audio.setAttribute('preload', 'auto');
         $rootScope.progressBar = [0,0];
-        $rootScope.coverUrl = $scope.mediaUrl + "index.html?type=cover&name=" + $rootScope.playlist[$rootScope.trackCounter].filename;
 
         //~ TODO: volume control
         // Get the HTML5 range input element and append audio volum adjustement on change
@@ -169,7 +185,9 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         // song ended
         $rootScope.audio.addEventListener('ended', function() {
             if($rootScope.trackCounter == $rootScope.playlist.length - 1) {
-                //~ TODO: song end
+                $rootScope.audio.pause();
+                $rootScope.isPlaying = false;
+                $rootScope.$broadcast('controlchanged');
             } else {
                 $scope.nextTrack();
             }
@@ -178,7 +196,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.getTrackIframe = function(name) {
         var iframe = document.getElementById("detailsIframe");
-        iframe.src = $scope.mediaUrl + 'index.html?type=track&hash=' + $rootScope.authHash + '&name=' + name;
+        iframe.src = $rootScope.settings.mediaurl + 'index.html?type=track&hash=' + $rootScope.authHash + '&name=' + name;
     };
 
     $scope.getTrackDetails = function(detailsJson) {
@@ -239,7 +257,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $scope.timeoutId = $timeout(function() {
                 $("#overlayController").fadeOut("fast");
                 $rootScope.isControlVisible = 0;
-            }, 5000);
+            }, 4000);
         } else if ($rootScope.isControlVisible == 1) {
             $("#overlayController").fadeOut("fast");
             $rootScope.isControlVisible = 0;
@@ -289,6 +307,33 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if ($rootScope.trackCounter < $rootScope.playlist.length - 1) {
             $rootScope.trackCounter++;
             $scope.playTrack($rootScope.trackCounter);
+        }
+    };
+
+    $scope.openSettings = function() {
+        $scope.lastSettings = JSON.stringify($rootScope.settings);
+        if (localStorage.dinoPlayerSettings == undefined) {
+            localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
+        }
+        try {
+            $rootScope.settings = JSON.parse(localStorage.dinoPlayerSettings);
+        } catch(error) {
+            utils.status.show($translate('ERROR_PARSING_SETTINGS'));
+        }
+        $scope.isSettingsVisible = true;
+    };
+
+    $scope.closeSettings = function(save) {
+        $scope.isSettingsVisible = false;
+        if (save && $scope.lastSettings != JSON.stringify($rootScope.settings)) {
+            localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
+            $scope.makeRequest($rootScope.settings.mediaurl + "list.json", 'list');
+        } else {
+            try {
+                $rootScope.settings = JSON.parse($scope.lastSettings);
+            } catch(error) {
+                utils.status.show($translate('ERROR_PARSING_SETTINGS'));
+            }
         }
     };
 }]);
