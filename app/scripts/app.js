@@ -30,7 +30,8 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'ERROR_PARSING_PLAYLIST': 'Error while parsing playlist!',
             'ERROR_PARSING_DETAILS': 'Error while parsing details',
             'ERROR_PARSING_COVER': 'Error while parsing cover',
-            'ERROR_PARSING_SETTINGS': 'Error while pasing settings'
+            'ERROR_PARSING_SETTINGS': 'Error while pasing settings',
+            'ERROR_NO_MEDIAURL': 'Please add a music folder first'
         });
 
         var huTranslation = {
@@ -51,7 +52,8 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'ERROR_PARSING_PLAYLIST': 'Hiba történt a lejátszólista olvasásánál',
             'ERROR_PARSING_DETAILS': 'Hiba történt a szám részleteinek olvasásánál',
             'ERROR_PARSING_COVER': 'Hiba történt az album borítójának olvasásánál',
-            'ERROR_PARSING_SETTINGS': 'Hiba történt a beállítások olvasásánál'
+            'ERROR_PARSING_SETTINGS': 'Hiba történt a beállítások olvasásánál',
+            'ERROR_NO_MEDIAURL': 'Kérlek adj hozzá először egy zenemappát'
         };
         $translateProvider.translations('hu', huTranslation);
         $translateProvider.translations('hu-HU', huTranslation);

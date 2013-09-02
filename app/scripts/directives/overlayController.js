@@ -19,10 +19,8 @@ angular.module('dinoplayerApp').directive('overlayController', function ($timeou
 
             scope.playPause = function() {
                 $rootScope.isControlVisible = -1;
-
-                if ($rootScope.playPause() != -1) {
-                    scope.isPlaying = !scope.isPlaying;
-                }
+                $rootScope.playPause();
+                scope.isPlaying = $rootScope.isPlaying;
             };
         }
     };

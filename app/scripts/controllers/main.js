@@ -20,6 +20,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
         if ($rootScope.isPlaying == undefined) {
             $rootScope.isPlaying = false;
+            $rootScope.$broadcast('controlchanged');
         }
 
         // set hash to handle details with server
@@ -111,6 +112,8 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             var playlist = JSON.parse(playlist);
         } catch (error) {
             utils.status.show($translate('ERROR_PARSING_PLAYLIST'));
+            $rootScope.isLoaded = false;
+            return;
         }
         $rootScope.playlist = new Array();
         for (var i = 0; i < playlist.length; i++) {
@@ -124,18 +127,33 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $scope.$apply();
     };
 
+    $scope.reloadPlaylist = function() {
+        if ($rootScope.isPlaying) {
+            $rootScope.playPause();
+            console.log($rootScope.isPlaying);
+        }
+        if ($rootScope.settings.mediaurl == "") {
+            utils.status.show($translate('ERROR_NO_MEDIAURL'));
+        } else {
+            $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
+        }
+        console.log($rootScope.isPlaying);
+    };
+
     $rootScope.playPause = function() {
         if (!$rootScope.isLoaded) {
             utils.status.show($translate('ERROR_PLAYLIST_NOT_LOADED'));
-            return -1;
+            return;
         }
         if (!$rootScope.isPlaying) {
             $scope.getTrackIframe($rootScope.playlist[$rootScope.trackCounter].filename);
             $rootScope.audio.play();
             $rootScope.isPlaying = true;
+            $rootScope.$broadcast('controlchanged');
         } else {
             $rootScope.audio.pause();
             $rootScope.isPlaying = false;
+            $rootScope.$broadcast('controlchanged');
         }
     };
 
@@ -280,6 +298,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if ($rootScope.isPlaying) {
             $rootScope.audio.pause();
             $rootScope.isPlaying = false;
+            $rootScope.$broadcast('controlchanged');
             wasPlaying = true;
         }
         $rootScope.trackCounter = index;

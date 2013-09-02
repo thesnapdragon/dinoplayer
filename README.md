@@ -4,6 +4,13 @@
 
 Simple HTM5 streaming music player using cloud storages
 
+*Features:*
+
+* Listening to music, without copying tracks to the phone
+* Full touchscreen-based control
+* Track details recognition (using ID3 tags)
+* Automatic album cover art search
+
 It is designed as a touchscreen-based music player, that can play music from many cloud storages (without using their APIs). You can control the player with gestures. To play or pause music simply tap the screen, for changing tracks swipe it.
 
 Available: *Coming soon*
