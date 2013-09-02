@@ -92,3 +92,9 @@ FIXES
     margin-left: -15rem !important;
     width: 30rem !important;
 }
+
+.modal .modal-body {
+    max-height: 26rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
