@@ -24,7 +24,7 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'HELP_PLAYPAUSE': 'Play or pause current track',
             'HELP_NEXTTRACK': 'Change to next track',
             'HELP_PREVIOUSTRACK': 'Change to previous track',
-            'ERROR_PLAYLIST_NOT_LOADED_': 'Playlist has not been loaded!',
+            'ERROR_PLAYLIST_NOT_LOADED': 'Playlist has not been loaded!',
             'ERROR_BROWSER_NOT_SUPPORTED': 'Browser not supported!',
             'ERROR_CAN_NOT_CONNECT': 'Error while connecting!',
             'ERROR_PARSING_PLAYLIST': 'Error while parsing playlist!',

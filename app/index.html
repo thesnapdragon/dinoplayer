@@ -21,7 +21,6 @@
         <link rel="stylesheet" href="styles/shared/style/headers.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/drawer.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/lists.css">
-        <link rel="stylesheet" href="styles/shared/style/buttons.css">
         <link rel="stylesheet" href="styles/shared/style/status.css">
         <link rel="stylesheet" href="styles/shared/style/input_areas.css">
 
@@ -86,11 +85,11 @@
 
                 <h2>{{ 'HELP' | translate }}</h2>
                     <dl class="dl-horizontal">
-                        <dt><img alt="playPause" src="img/tap.png" /></dt>
+                        <dt><img alt="playPause" src="images/tap.png" /></dt>
                         <dd>{{ 'HELP_PLAYPAUSE' | translate }}</dd>
-                        <dt><img alt="nextTrack" src="img/swipe-left.png" /></dt>
+                        <dt><img alt="nextTrack" src="images/swipe-left.png" /></dt>
                         <dd>{{ 'HELP_NEXTTRACK' | translate }}</dd>
-                        <dt><img alt="previousTrack" src="img/swipe-right.png" /></dt>
+                        <dt><img alt="previousTrack" src="images/swipe-right.png" /></dt>
                         <dd>{{ 'HELP_PREVIOUSTRACK' | translate }}</dd>
                     </dl>
             </div>
@@ -111,20 +110,20 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/status.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/filters/timeFilter.js"></script>
     <script src="scripts/directives/myFrame.js"></script>
     <script src="scripts/directives/overlayController.js"></script>
+    <script src="scripts/directives/details.js"></script>
+    <script src="scripts/filters/titleFilter.js"></script>
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
-        <script src="scripts/status.js"></script>
         <script src="bower_components/bootstrap-custom/ui-bootstrap-custom-tpls-0.5.0.min.js"></script>
         <script src="bower_components/angular-gestures/gestures.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
         <script src="bower_components/angular-translate-interpolation-default/angular-translate-interpolation-default.js"></script>
-        <script src="scripts/directives/details.js"></script>
-        <script src="scripts/filters/titleFilter.js"></script>
         <!-- endbuild -->
 </body>
 </html>

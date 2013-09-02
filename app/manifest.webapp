@@ -5,12 +5,12 @@
     "launch_path": "/index.html",
     "description": "Simple HTM5 streaming music player from cloud storages",
     "icons": {
-        "16": "/img/logo16.png",
-        "32": "/img/logo32.png",
-        "48": "/img/logo48.png",
-        "60": "img/logo60.png",
-        "64": "/img/logo64.png",
-        "128": "/img/logo128.png"
+        "16": "/images/logo16.png",
+        "32": "/images/logo32.png",
+        "48": "/images/logo48.png",
+        "60": "images/logo60.png",
+        "64": "/images/logo64.png",
+        "128": "/images/logo128.png"
     },
     "developer": {
         "name": "Milán Unicsovics",

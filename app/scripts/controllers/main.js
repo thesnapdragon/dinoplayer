@@ -52,7 +52,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             }
         }
 
-        if (!$rootScope.isLoaded && ($rootScope.settings.mediaurl != undefined || $rootScope.settings.mediaurl != null)) {
+        if ($rootScope.isLoaded && $rootScope.settings.mediaurl != undefined && $rootScope.settings.mediaurl != null) {
             $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
         }
     };
@@ -127,7 +127,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     $rootScope.playPause = function() {
         if (!$rootScope.isLoaded) {
             utils.status.show($translate('ERROR_PLAYLIST_NOT_LOADED'));
-            return;
+            return -1;
         }
         if (!$rootScope.isPlaying) {
             $scope.getTrackIframe($rootScope.playlist[$rootScope.trackCounter].filename);
