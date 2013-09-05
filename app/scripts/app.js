@@ -42,7 +42,7 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'MEDIAURL': 'Média URL',
             'SERVICE_SELECT': 'Válaszd ki a tárhely szolgáltatód: ',
             'MEDIA_SELECT': 'Add meg a mappa elérési útját: ',
-            'HELP': 'Segítség',
+            'HELP': 'Súgó',
             'HELP_PLAYPAUSE': 'Aktuális szám lejátszása vagy megállítása',
             'HELP_NEXTTRACK': 'Következő szám',
             'HELP_PREVIOUSTRACK': 'Előző szám',

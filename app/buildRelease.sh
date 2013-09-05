@@ -10,6 +10,7 @@ rm -fv ../dist/bower_components/jquery/compo* ../dist/bower_components/jquery/jq
 
 # add manifest
 cp -v manifest.webapp ../dist/
+sed -i 's/DinoPlayerTest/DinoPlayer/' ../dist/manifest.webapp
 
 # add used Firefox fonts
 cp -v styles/FeuraSans-Medium.otf styles/FeuraSans-Medium.ttf styles/FeuraSans-Medium.eot styles/FeuraSans-Medium.svg styles/FeuraSans-Medium.woff ../dist/styles/

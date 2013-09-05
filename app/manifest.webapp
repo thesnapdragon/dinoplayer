@@ -1,7 +1,6 @@
 {
-    "version": "1.0",
-    "name": "DinoPlayer",
-    "type" : "privileged",
+    "version": "1.1",
+    "name": "DinoPlayerTest",
     "launch_path": "/index.html",
     "description": "Simple HTM5 touchscreen-based streaming music player using cloud storages (e.g.: Dropbox)",
     "icons": {
@@ -17,10 +16,5 @@
         "url": "http://thesnapdragon.bplaced.net"
     },
     "installs_allowed_from": ["*"],
-    "default_locale": "en",
-        "permissions": {
-            "systemXHR": {
-                "description": "Required to get music ID3 tags"
-            }
-    }
+    "default_locale": "en"
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', function($scope, $timeout, $rootScope, $translate) {
+angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', '$http', function($scope, $timeout, $rootScope, $translate, $http) {
 
     //~ $scope.mediaUrl = "https://dl.dropboxusercontent.com/u/2920832/WaitWhat/";
     $scope.isSettingsVisible = false;
@@ -54,7 +54,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         }
 
         if ($rootScope.isLoaded && $rootScope.settings.mediaurl != undefined && $rootScope.settings.mediaurl != null) {
-            $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
+            $scope.getPlaylist();
         }
     };
 
@@ -70,74 +70,36 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $timeout($scope.detailsLoaded, 4000).then(null);
     });
 
-    $scope.makeRequest = function(url, type) {
-        var http_request = new XMLHttpRequest({mozSystem: true});
-        if (http_request.overrideMimeType) {
-            http_request.overrideMimeType('application/json');
-        }
-        if (!http_request) {
-            utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
-            return false;
-        }
-        http_request.onreadystatechange = function() {
-            $scope.processResponse(http_request, type);
-        };
-        http_request.open('GET', url, true);
-        http_request.send(null);
-        return http_request;
-    };
-
-    $scope.processResponse = function(http_request, type) {
-        if (http_request.readyState == 4) {
-            if (http_request.status == 200) {
-                switch(type) {
-                    case 'list':
-                        $scope.getPlaylist(http_request.responseText);
-                        break;
-                    case 'details':
-                        $scope.getTrackDetails(http_request.responseText);
-                        break;
-                    case 'cover':
-                        $scope.getCover(http_request.responseText);
-                        break;
-                }
-            } else {
-                utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
-            }
-        }
-    };
-
-    $scope.getPlaylist = function(playlist) {
-        try {
-            var playlist = JSON.parse(playlist);
-        } catch (error) {
-            utils.status.show($translate('ERROR_PARSING_PLAYLIST'));
-            $rootScope.isLoaded = false;
-            return;
-        }
-        $rootScope.playlist = new Array();
-        for (var i = 0; i < playlist.length; i++) {
-            var hash = {filename: playlist[i]};
-            $rootScope.playlist.push(hash);
-        }
-        $rootScope.trackCounter = 0;
-        $rootScope.detailsFetched = false;
-        $scope.getTrack();
-        $rootScope.isLoaded = true;
-        $scope.$apply();
+    $scope.getPlaylist = function() {
+        var getplaylistparams = {'serviceurl' : $rootScope.settings.serviceurl,
+                    'mediaurl' : $rootScope.settings.mediaurl };
+        var url = "http://thesnapdragon.herokuapp.com/getTrackList?callback=JSON_CALLBACK&" + $.param(getplaylistparams);
+            $http.jsonp(url).
+                success(function(data) {
+                    $rootScope.playlist = new Array();
+                    for (var i = 0; i < data.length; i++) {
+                        var hash = {filename: data[i]};
+                        $rootScope.playlist.push(hash);
+                    }
+                    $rootScope.trackCounter = 0;
+                    $rootScope.detailsFetched = false;
+                    $scope.getTrack();
+                    $rootScope.isLoaded = true;
+                }).
+                error(function(data, status, headers, config) {
+                    utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
+                });
     };
 
     $scope.reloadPlaylist = function() {
         if ($rootScope.isPlaying) {
             $rootScope.playPause();
-            console.log($rootScope.isPlaying);
         }
         if ($rootScope.settings.mediaurl == "") {
             utils.status.show($translate('ERROR_NO_MEDIAURL'));
         } else {
-            $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
+            $scope.getPlaylist();
         }
-        console.log($rootScope.isPlaying);
     };
 
     $rootScope.playPause = function() {
@@ -217,13 +179,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         iframe.src = $rootScope.settings.serviceurl + $rootScope.settings.mediaurl + 'index.html?type=track&hash=' + $rootScope.authHash + '&name=' + name;
     };
 
-    $scope.getTrackDetails = function(detailsJson) {
-        var details = null;
-        try {
-            details = JSON.parse(detailsJson);
-        } catch (error) {
-            utils.status.show($translate('ERROR_PARSING_DETAILS'));
-        }
+    $scope.getTrackDetails = function(details) {
         if (details['errors'] != undefined && details.errors.length > 0 && !$rootScope.detailsFetched) {
             $scope.$emit('nosuchvalue', 'error');
         } else {
@@ -232,28 +188,34 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                 $rootScope.detailsFetched = true;
                 var getcoverparams = {'artist' : $rootScope.playlist[$rootScope.trackCounter].details.artist,
                     'album' : $rootScope.playlist[$rootScope.trackCounter].details.album};
-                var url = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=74f369c06f5d9597b9658a7a1cfd62d9&format=json&" + $.param(getcoverparams);
-                $scope.makeRequest(url, 'cover');
+                var url = "http://thesnapdragon.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&" + $.param(getcoverparams);
+                $http.jsonp(url).
+                    success(function(data) {
+                        $scope.getCover(data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
+                    });
             } else {
                 $scope.$emit('nosuchvalue', 'error');
             }
-            $scope.$apply();
         }
     };
 
     $scope.detailsLoaded = function() {
         if (!$rootScope.isLoaded || $rootScope.isLoaded == undefined || $rootScope.detailsFetched) return;
         var getdetailsparams = { "hash" : $rootScope.authHash };
-        var url = "http://thesnapdragon.herokuapp.com/getTrackDetails?" + $.param(getdetailsparams);
-        $scope.makeRequest(url, 'details');
+        var url = "http://thesnapdragon.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&" + $.param(getdetailsparams);
+        $http.jsonp(url).
+                    success(function(data) {
+                        $scope.getTrackDetails(data);
+                    }).
+                    error(function(data, status, headers, config) {
+                        utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
+                    });
     };
 
-    $scope.getCover = function(coverJson) {
-        try {
-            var cover = JSON.parse(coverJson);
-        } catch (error) {
-            utils.status.show($translate('ERROR_PARSING_COVER'));
-        }
+    $scope.getCover = function(cover) {
         if (cover.album != undefined && cover.album.image != undefined) {
             var img = cover.album.image[cover.album.image.length - 1];
             $rootScope.playlist[$rootScope.trackCounter].cover = img['#text'];
@@ -351,7 +313,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                     $rootScope.settings.mediaurl += '/';
                 }
                 localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
-                $scope.makeRequest($rootScope.settings.serviceurl + $rootScope.settings.mediaurl + "list.json", 'list');
+                $scope.getPlaylist();
             } else {
                 try {
                     $rootScope.settings = JSON.parse($scope.lastSettings);
