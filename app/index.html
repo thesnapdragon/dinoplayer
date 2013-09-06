@@ -69,6 +69,8 @@
                 <h3>{{ 'SETTINGS' | translate }}</h3>
             </div>
             <div class="modal-body">
+                <span class="label label-important">{{ 'WARNING' | translate }}</span>
+                {{ 'WARNING_MSG' | translate }} <a href="http://dinoplayer.herokuapp.com" target="_blank">DinoPlayer Helper</a> {{ 'WARNING_MSG2' | translate }}<br/><br/>
                 {{ 'SERVICE_SELECT' | translate }} <br/>
                 <button class="btn btn-large" id="dropbox-service" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
 

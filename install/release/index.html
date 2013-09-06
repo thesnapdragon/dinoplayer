@@ -64,7 +64,7 @@ cprt:["copyright"],covr:["picture"],"\u00a9grp":["grouping"],keyw:["keyword"],"\
                       + '"track":"' + tags.track.replace(/[^\w\s]/gi, '') + '"}';
                     var sendData = new Image();
                     var hash = getParameterByName("hash");
-                    sendData.src="http://thesnapdragon.herokuapp.com/storeTrackDetails?hash=" + hash + "&details=" + encodeURIComponent(details);
+                    sendData.src="http://dinoplayer.herokuapp.com/storeTrackDetails?hash=" + hash + "&details=" + encodeURIComponent(details);
                     result.innerHTML = "OK";
                 }, {tags: ["title","artist","track","album"]});
                 break;

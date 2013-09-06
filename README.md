@@ -4,7 +4,7 @@
 
 Simple HTM5 streaming music player using cloud storages
 
-*Features:*
+**Features:**
 
 * Listening to music, without copying tracks to the phone
 * Full touchscreen-based control
@@ -13,7 +13,7 @@ Simple HTM5 streaming music player using cloud storages
 
 It is designed as a touchscreen-based music player, that can play music from many cloud storages (without using their APIs). You can control the player with gestures. To play or pause music simply tap the screen, for changing tracks swipe it.
 
-Available: *Coming soon*
+Available: Check on [Firefox Marketplace](https://marketplace.firefox.com/app/dinoplayer)
 
 ## Install
 
@@ -45,6 +45,10 @@ Copy music in your Dropbox's Public folder. Download [install.bat](https://raw.g
 **Currently supported cloud storages:**
 
 * [Dropbox](https://www.dropbox.com/)
+
+## Sites
+
+* [Official homepage](http://dinoplayer.herokuapp.com/)
 
 ## Used technologies
 

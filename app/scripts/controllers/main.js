@@ -2,7 +2,6 @@
 
 angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', '$http', function($scope, $timeout, $rootScope, $translate, $http) {
 
-    //~ $scope.mediaUrl = "https://dl.dropboxusercontent.com/u/2920832/WaitWhat/";
     $scope.isSettingsVisible = false;
     $scope.settingsOptions = {
         backdropFade: true,
@@ -73,7 +72,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     $scope.getPlaylist = function() {
         var getplaylistparams = {'serviceurl' : $rootScope.settings.serviceurl,
                     'mediaurl' : $rootScope.settings.mediaurl };
-        var url = "http://thesnapdragon.herokuapp.com/getTrackList?callback=JSON_CALLBACK&" + $.param(getplaylistparams);
+        var url = "http://dinoplayer.herokuapp.com/getTrackList?callback=JSON_CALLBACK&" + $.param(getplaylistparams);
             $http.jsonp(url).
                 success(function(data) {
                     $rootScope.playlist = new Array();
@@ -188,7 +187,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                 $rootScope.detailsFetched = true;
                 var getcoverparams = {'artist' : $rootScope.playlist[$rootScope.trackCounter].details.artist,
                     'album' : $rootScope.playlist[$rootScope.trackCounter].details.album};
-                var url = "http://thesnapdragon.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&" + $.param(getcoverparams);
+                var url = "http://dinoplayer.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&" + $.param(getcoverparams);
                 $http.jsonp(url).
                     success(function(data) {
                         $scope.getCover(data);
@@ -205,7 +204,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     $scope.detailsLoaded = function() {
         if (!$rootScope.isLoaded || $rootScope.isLoaded == undefined || $rootScope.detailsFetched) return;
         var getdetailsparams = { "hash" : $rootScope.authHash };
-        var url = "http://thesnapdragon.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&" + $.param(getdetailsparams);
+        var url = "http://dinoplayer.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&" + $.param(getdetailsparams);
         $http.jsonp(url).
                     success(function(data) {
                         $scope.getTrackDetails(data);
