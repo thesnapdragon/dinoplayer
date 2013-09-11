@@ -45,9 +45,24 @@ html, body {
     left: 50%;
 }
 
+.centerblock {
+    text-align: center;
+}
+
+.centerblock:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+
 .cover {
     width: 240px;
     height: 240px;
+    display: inline-block;
+  vertical-align: middle;
+  width: 240px;
 }
 
 .dl-horizontal dt {
@@ -67,16 +82,31 @@ html, body {
 EXTENSIONS
 */
 
-section[role="region"] > header:first-child .icon.icon-settings {
-    background-image: url(../images/settings.png);
+.icon.icon-settings {
+    background-image: url(../images/settings.png) !important;
+    margin-top: -1.5rem !important;
 }
 
-section[role="region"] > header:first-child .icon.icon-reload {
-    background-image: url(../images/reload.png);
+.icon.icon-reload {
+    background-image: url(../images/reload.png) !important;
+    margin-top: -1.5rem !important;
+}
+
+section[role="region"] > header:first-child .icon.icon-repeat_false {
+    background-image: url(../images/repeat_off.png);
+}
+
+section[role="region"] > header:first-child .icon.icon-repeat_true {
+    background-image: url(../images/repeat_on.png);
 }
 
 .icon-dropbox {
     background-image: url(../images/dropbox.png);
+    background-position: center center;
+}
+
+.icon-other {
+    background-image: url(../images/browser.png);
     background-position: center center;
 }
 
@@ -86,6 +116,7 @@ FIXES
 
 .btn {
     width: auto;
+    margin-bottom: 1rem;
 }
 
 .mediaurl-legend {
@@ -108,12 +139,11 @@ FIXES
 }
 
 .progress {
+    border-radius: 0px 0px 0px 0px;
+    display: inline-block;
+    vertical-align: middle;
     width: 240px;
     height: 5px;
-    margin-left: -120px;
-    position: absolute;
-    left: 50%;
-    border-radius: 0px 0px 0px 0px;
 }
 
 .progress-success .bar, .progress .bar-success {

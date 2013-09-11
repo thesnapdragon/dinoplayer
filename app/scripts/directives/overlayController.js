@@ -2,9 +2,6 @@
 
 angular.module('dinoplayerApp').directive('overlayController', function ($timeout, $rootScope) {
     return {
-        //~ scope: {
-            //~ isPlaying: '=isPlaying'
-        //~ },
         restrict: 'E',
         template: '<span class="overlay">' +
             '<span class="overlaycontrol" ng-switch="isPlaying">' +

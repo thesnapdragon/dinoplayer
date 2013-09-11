@@ -17,11 +17,11 @@ cp -v styles/FeuraSans-Medium.otf styles/FeuraSans-Medium.ttf styles/FeuraSans-M
 
 # add used Firefox CSS templates
 mkdir -pv ../dist/styles/shared/style/ ../dist/styles/shared/style_unstable/
-cp -rv styles/shared/style/headers.css styles/shared/style/status.css styles/shared/style/input_areas.css ../dist/styles/shared/style/
+cp -rv styles/shared/style/headers.css styles/shared/style/status.css ../dist/styles/shared/style/
 cp -rv styles/shared/style_unstable/drawer.css styles/shared/style_unstable/lists.css styles/shared/style_unstable/progress_activity.css ../dist/styles/shared/style_unstable/
 
 # add used Firefox CSS images
-cp -rv images/drawer images/headers images/input_areas images/status images/progress_activity ../dist/images/
+cp -rv images/drawer images/headers images/status images/progress_activity ../dist/images/
 
 # repair broken image names
 cd ../dist/images

@@ -22,7 +22,6 @@
         <link rel="stylesheet" href="styles/shared/style_unstable/drawer.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/lists.css">
         <link rel="stylesheet" href="styles/shared/style/status.css">
-        <link rel="stylesheet" href="styles/shared/style/input_areas.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/progress_activity.css">
 
 </head>
@@ -41,6 +40,8 @@
         <section data-type="sidebar">
             <header>
                 <menu type="toolbar">
+                    <a ng-click="reloadPlaylist()"><span class="icon icon-reload">reload</span></a>
+                    <a ng-click="openSettings()"><span class="icon icon-settings">settings</span></a>
                     <a href="#">OK</a>
                 </menu>
                 <h1>{{ 'MENU' | translate }}</h1>
@@ -58,15 +59,14 @@
                 <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
                 <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
                 <menu type="toolbar">
-                    <a ng-click="reloadPlaylist()"><span class="icon icon-reload">reload</span></a>
-                    <a ng-click="openSettings()"><span class="icon icon-settings">settings</span></a>
+                    <a ng-click="toggleRepeat()"><span class="icon icon-repeat_{{repeatTrack}}">repeat</span></a>
                 </menu>
                 <h1>DinoPlayer</h1>
                 <progress_loading ng-show="requestCounter > 0" max="100" value="0" class="pack-activity"></progress_loading>
             </header>
 
             <article class="content scrollable header" ng-click="showControl()">
-                <overlay-controller id="overlayController" is-playing="isPlaying" class="hide"></overlay-controller>
+                <overlay-controller id="overlayController" class="hide"></overlay-controller>
                 <div class="settings hide" modal="isSettingsVisible!=undefined && isSettingsVisible" close="closeSettings(false)" options="settingsOptions">
                     <div class="modal-header">
                         <h3>{{ 'SETTINGS' | translate }}</h3>
@@ -75,18 +75,14 @@
                         <span class="label label-important">{{ 'WARNING' | translate }}</span>
                         {{ 'WARNING_MSG' | translate }} <a href="http://dinoplayer.herokuapp.com" target="_blank">DinoPlayer Helper</a> {{ 'WARNING_MSG2' | translate }}<br/><br/>
                         {{ 'SERVICE_SELECT' | translate }} <br/>
-                        <button class="btn btn-large" id="dropbox-service" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
+                        <button class="btn btn-small" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
+                        <button class="btn btn-small" ng-class="{active: settings.service == 'other'}" ng-click="setService('other')"><i class="icon-other"></i> {{ 'SERVICE_OTHER' | translate }}</button> <br/>
 
                         <span ng-show="settings.service != undefined">
                             {{ 'MEDIA_SELECT' | translate }}
-                            <fieldset>
-                                <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
-                                <section class="mediaurl-section">
-                                    <p>
-                                        <input type="text" ng-model="settings.mediaurl">
-                                    </p>
-                                </section>
-                            </fieldset>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ 'MEDIAURL' | translate }}" ng-model="settings.mediaurl">
+                            </div>
                         </span>
 
                         <h2>{{ 'HELP' | translate }}</h2>

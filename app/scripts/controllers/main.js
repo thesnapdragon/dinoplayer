@@ -47,6 +47,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $rootScope.requestCounter = 0;
         }
 
+        if ($rootScope.repeatTrack == undefined) {
+            $rootScope.repeatTrack = false;
+        }
+
         // handle settings
         if ($rootScope.settings == undefined) {
             if (localStorage.dinoPlayerSettings != undefined) {
@@ -169,12 +173,16 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
         // song ended
         $rootScope.audio.addEventListener('ended', function() {
-            if($rootScope.trackCounter == $rootScope.playlist.length - 1) {
-                $rootScope.audio.pause();
-                $rootScope.isPlaying = false;
-                $rootScope.$broadcast('controlchanged');
+            if ($rootScope.repeatTrack) {
+                $scope.playTrack($rootScope.trackCounter);
             } else {
-                $scope.nextTrack();
+                if($rootScope.trackCounter == $rootScope.playlist.length - 1) {
+                    $rootScope.audio.pause();
+                    $rootScope.isPlaying = false;
+                    $rootScope.$broadcast('controlchanged');
+                } else {
+                    $scope.nextTrack();
+                }
             }
         }, false);
     };
@@ -302,6 +310,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         }
     };
 
+    $scope.toggleRepeat = function() {
+        $rootScope.repeatTrack = !$rootScope.repeatTrack;
+    };
+
     $scope.openSettings = function() {
         $scope.lastSettings = JSON.stringify($rootScope.settings);
         if (localStorage.dinoPlayerSettings == undefined) {
@@ -336,11 +348,15 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $scope.setService = function(service) {
+        $rootScope.settings.service = service;
+        $rootScope.settings.mediaurl = "";
         switch(service) {
             case 'dropbox':
-                $rootScope.settings.service = service;
                 $rootScope.settings.serviceurl = "https://dl.dropboxusercontent.com/u/";
                 break;
-        }
+            case 'other':
+                $rootScope.settings.serviceurl = "";
+                break;
+            }
     };
 }]);
