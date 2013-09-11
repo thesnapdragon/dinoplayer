@@ -43,6 +43,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $rootScope.authHash = localStorage.dinoPlayerHash;
         }
 
+        if ($rootScope.requestCounter == undefined) {
+            $rootScope.requestCounter = 0;
+        }
+
         // handle settings
         if ($rootScope.settings == undefined) {
             if (localStorage.dinoPlayerSettings != undefined) {
@@ -70,11 +74,12 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     });
 
     $scope.getPlaylist = function() {
-        var getplaylistparams = {'serviceurl' : $rootScope.settings.serviceurl,
-                    'mediaurl' : $rootScope.settings.mediaurl };
+        $rootScope.requestCounter++;
+        var getplaylistparams = {'serviceurl' : $rootScope.settings.serviceurl, 'mediaurl' : $rootScope.settings.mediaurl };
         var url = "http://dinoplayer.herokuapp.com/getTrackList?callback=JSON_CALLBACK&" + $.param(getplaylistparams);
             $http.jsonp(url).
                 success(function(data) {
+                    $rootScope.requestCounter--;
                     $rootScope.playlist = new Array();
                     for (var i = 0; i < data.length; i++) {
                         var hash = {filename: data[i]};
@@ -86,6 +91,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                     $rootScope.isLoaded = true;
                 }).
                 error(function(data, status, headers, config) {
+                    $rootScope.requestCounter--;
                     utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
                 });
     };
@@ -185,14 +191,17 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             if (!$rootScope.detailsFetched && $rootScope.playlist[$rootScope.trackCounter].filename == details.filename) {
                 $rootScope.playlist[$rootScope.trackCounter].details = details;
                 $rootScope.detailsFetched = true;
+                $rootScope.requestCounter++;
                 var getcoverparams = {'artist' : $rootScope.playlist[$rootScope.trackCounter].details.artist,
                     'album' : $rootScope.playlist[$rootScope.trackCounter].details.album};
                 var url = "http://dinoplayer.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&" + $.param(getcoverparams);
                 $http.jsonp(url).
                     success(function(data) {
+                        $rootScope.requestCounter--;
                         $scope.getCover(data);
                     }).
                     error(function(data, status, headers, config) {
+                        $rootScope.requestCounter--;
                         utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
                     });
             } else {
@@ -203,13 +212,16 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.detailsLoaded = function() {
         if (!$rootScope.isLoaded || $rootScope.isLoaded == undefined || $rootScope.detailsFetched) return;
+        $rootScope.requestCounter++;
         var getdetailsparams = { "hash" : $rootScope.authHash };
         var url = "http://dinoplayer.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&" + $.param(getdetailsparams);
         $http.jsonp(url).
                     success(function(data) {
+                        $rootScope.requestCounter--;
                         $scope.getTrackDetails(data);
                     }).
                     error(function(data, status, headers, config) {
+                        $rootScope.requestCounter--;
                         utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
                     });
     };

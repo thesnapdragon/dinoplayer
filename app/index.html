@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="styles/shared/style_unstable/lists.css">
         <link rel="stylesheet" href="styles/shared/style/status.css">
         <link rel="stylesheet" href="styles/shared/style/input_areas.css">
+        <link rel="stylesheet" href="styles/shared/style_unstable/progress_activity.css">
 
 </head>
   <body ng-app="dinoplayerApp" ng-controller="MainCtrl" hm-swipe-left="nextTrack()" hm-swipe-right="previousTrack()">
@@ -37,73 +38,75 @@
 
     <!-- Add your site or application content here -->
     <section id="index" data-position="current" ng-init="init()">
-    <section data-type="sidebar">
-      <header>
-        <menu type="toolbar">
-          <a href="#">OK</a>
-        </menu>
-        <h1>{{ 'MENU' | translate }}</h1>
-      </header>
-      <nav>
-        <h2>{{ 'PLAYLIST' | translate }}</h2>
-        <ul ng-repeat="track in playlist">
-          <li ng-click="backToPlayer($index)"><a href="#">{{track.filename}}</a></li>
-        </ul>
-      </nav>
+        <section data-type="sidebar">
+            <header>
+                <menu type="toolbar">
+                    <a href="#">OK</a>
+                </menu>
+                <h1>{{ 'MENU' | translate }}</h1>
+            </header>
+            <nav>
+                <h2>{{ 'PLAYLIST' | translate }}</h2>
+                <ul ng-repeat="track in playlist">
+                    <li ng-click="backToPlayer($index)"><a href="#">{{track.filename}}</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <section id="drawer" class="skin-dark" role="region">
+            <header class="fixed">
+                <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
+                <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
+                <menu type="toolbar">
+                    <a ng-click="reloadPlaylist()"><span class="icon icon-reload">reload</span></a>
+                    <a ng-click="openSettings()"><span class="icon icon-settings">settings</span></a>
+                </menu>
+                <h1>DinoPlayer</h1>
+                <progress_loading ng-show="requestCounter > 0" max="100" value="0" class="pack-activity"></progress_loading>
+            </header>
+
+            <article class="content scrollable header" ng-click="showControl()">
+                <overlay-controller id="overlayController" is-playing="isPlaying" class="hide"></overlay-controller>
+                <div class="settings hide" modal="isSettingsVisible!=undefined && isSettingsVisible" close="closeSettings(false)" options="settingsOptions">
+                    <div class="modal-header">
+                        <h3>{{ 'SETTINGS' | translate }}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <span class="label label-important">{{ 'WARNING' | translate }}</span>
+                        {{ 'WARNING_MSG' | translate }} <a href="http://dinoplayer.herokuapp.com" target="_blank">DinoPlayer Helper</a> {{ 'WARNING_MSG2' | translate }}<br/><br/>
+                        {{ 'SERVICE_SELECT' | translate }} <br/>
+                        <button class="btn btn-large" id="dropbox-service" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
+
+                        <span ng-show="settings.service != undefined">
+                            {{ 'MEDIA_SELECT' | translate }}
+                            <fieldset>
+                                <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
+                                <section class="mediaurl-section">
+                                    <p>
+                                        <input type="text" ng-model="settings.mediaurl">
+                                    </p>
+                                </section>
+                            </fieldset>
+                        </span>
+
+                        <h2>{{ 'HELP' | translate }}</h2>
+                        <dl class="dl-horizontal">
+                            <dt><img alt="playPause" src="images/tap.png" /></dt>
+                            <dd>{{ 'HELP_PLAYPAUSE' | translate }}</dd>
+                            <dt><img alt="nextTrack" src="images/swipe-left.png" /></dt>
+                            <dd>{{ 'HELP_NEXTTRACK' | translate }}</dd>
+                            <dt><img alt="previousTrack" src="images/swipe-right.png" /></dt>
+                            <dd>{{ 'HELP_PREVIOUSTRACK' | translate }}</dd>
+                        </dl>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" ng-click="closeSettings(true)">{{ 'SAVE' | translate }}</button>
+                    </div>
+                </div>
+                <div class="text-center" ng-view=""></div>
+            </article>
+        </section>
     </section>
-
-    <section id="drawer" class="skin-dark" role="region">
-      <header class="fixed">
-        <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-        <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
-        <menu type="toolbar">
-            <a ng-click="reloadPlaylist()"><span class="icon icon-reload">reload</span></a>
-            <a ng-click="openSettings()"><span class="icon icon-settings">settings</span></a>
-        </menu>
-        <h1>DinoPlayer</h1>
-      </header>
-      <article class="content scrollable header" ng-click="showControl()">
-        <overlay-controller id="overlayController" is-playing="isPlaying" class="hide"></overlay-controller>
-        <div class="settings hide" modal="isSettingsVisible!=undefined && isSettingsVisible" close="closeSettings(false)" options="settingsOptions">
-            <div class="modal-header">
-                <h3>{{ 'SETTINGS' | translate }}</h3>
-            </div>
-            <div class="modal-body">
-                <span class="label label-important">{{ 'WARNING' | translate }}</span>
-                {{ 'WARNING_MSG' | translate }} <a href="http://dinoplayer.herokuapp.com" target="_blank">DinoPlayer Helper</a> {{ 'WARNING_MSG2' | translate }}<br/><br/>
-                {{ 'SERVICE_SELECT' | translate }} <br/>
-                <button class="btn btn-large" id="dropbox-service" ng-class="{active: settings.service == 'dropbox'}" ng-click="setService('dropbox')"><i class="icon-dropbox"></i> Dropbox</button> <br/>
-
-                <span ng-show="settings.service != undefined">
-                    {{ 'MEDIA_SELECT' | translate }}
-                    <fieldset>
-                        <legend class="mediaurl-legend">{{ 'MEDIAURL' | translate }}</legend>
-                        <section class="mediaurl-section">
-                            <p>
-                                <input type="text" ng-model="settings.mediaurl">
-                            </p>
-                        </section>
-                    </fieldset>
-                </span>
-
-                <h2>{{ 'HELP' | translate }}</h2>
-                    <dl class="dl-horizontal">
-                        <dt><img alt="playPause" src="images/tap.png" /></dt>
-                        <dd>{{ 'HELP_PLAYPAUSE' | translate }}</dd>
-                        <dt><img alt="nextTrack" src="images/swipe-left.png" /></dt>
-                        <dd>{{ 'HELP_NEXTTRACK' | translate }}</dd>
-                        <dt><img alt="previousTrack" src="images/swipe-right.png" /></dt>
-                        <dd>{{ 'HELP_PREVIOUSTRACK' | translate }}</dd>
-                    </dl>
-            </div>
-            <div class="modal-footer">
-                <button class="btn cancel" ng-click="closeSettings(true)">{{ 'SAVE' | translate }}</button>
-            </div>
-        </div>
-        <div class="text-center" ng-view=""></div>
-      </article>
-    </section>
-  </section>
 
     <section class="invisible" role="status">
     </section>

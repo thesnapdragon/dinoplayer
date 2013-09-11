@@ -59,6 +59,10 @@ html, body {
     line-height: 4rem;
 }
 
+.details {
+    margin-top: 15px;
+}
+
 /*
 EXTENSIONS
 */
@@ -101,4 +105,25 @@ FIXES
     max-height: 26rem;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.progress {
+    width: 240px;
+    height: 5px;
+    margin-left: -120px;
+    position: absolute;
+    left: 50%;
+    border-radius: 0px 0px 0px 0px;
+}
+
+.progress-success .bar, .progress .bar-success {
+    background-color: #171717;
+    background-image: -moz-linear-gradient(center top , #1F1F1F, #0B0B0B);
+    background-repeat: repeat-x;
+}
+
+.progress-success .bar, .progress .bar-info {
+    background-color: #999999;
+    background-image: -moz-linear-gradient(center top , #999999, #888888);
+    background-repeat: repeat-x;
 }

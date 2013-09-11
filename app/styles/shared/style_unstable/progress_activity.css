@@ -3,8 +3,8 @@
  * ---------------------------------- */
 
 /* Spinner */
-progress:not([value]) {
-  background: url(progress_activity/images/ui/default.png) no-repeat center center / 100% auto;
+progress_loading:not([value]) {
+  background: url(../../../images/progress_activity/images/ui/default.png) no-repeat center center / 100% auto;
   animation: 0.9s rotate infinite steps(30);
   width: 2.9rem;
   height: 2.9rem;
@@ -13,12 +13,12 @@ progress:not([value]) {
   vertical-align: middle;
 }
 
-progress:not([value])::-moz-progress-bar {
+progress_loading:not([value])::-moz-progress_loading-bar {
  background: none;
 }
 
 /* Progress bar */
-progress[value] {
+progress_loading[value] {
   width: 100%;
   background: #333;
   border: none;
@@ -27,14 +27,14 @@ progress[value] {
   display: block;
 }
 
-progress[value]::-moz-progress-bar {
+progress_loading[value]::-moz-progress_loading-bar {
   background: #01c5ed;
   border-radius: 0;
 }
 
 /* Progress bar */
-progress[value].pack-activity {
-  background-image: url(progress_activity/images/ui/activity.png);
+progress_loading[value].pack-activity {
+  background-image: url(../../../images/progress_activity/images/ui/activity.png);
   background-repeat: repeat;
   background-size: auto 100%;
   animation: 0.5s move infinite steps(15);
@@ -49,11 +49,11 @@ p[role="status"] {
   color: #fff;
 }
 
-p[role="status"] progress:not([value]) {
+p[role="status"] progress_loading:not([value]) {
   margin-right: 0.5rem;
 }
 
-p[role="status"] progress:not([value]) + span {
+p[role="status"] progress_loading:not([value]) + span {
   margin-bottom: 0;
 }
 
@@ -64,7 +64,7 @@ p[role="status"] span {
 }
 
 /* Light Activity bar */
-progress[value].pack-activity.light {
+progress_loading[value].pack-activity.light {
   background-color: #f4f4f4;
 }
 
