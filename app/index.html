@@ -17,6 +17,8 @@
         <link rel="stylesheet" href="styles/shared/transitions.css">
         <link rel="stylesheet" href="styles/shared/util.css">
         <link rel="stylesheet" href="styles/shared/cross_browser.css">
+        <link rel="stylesheet" href="bower_components/slider/css/slider.css">
+
         <!-- endbuild -->
         <link rel="stylesheet" href="styles/shared/style/headers.css">
         <link rel="stylesheet" href="styles/shared/style_unstable/drawer.css">
@@ -57,7 +59,7 @@
         <section id="drawer" class="skin-dark" role="region">
             <header class="fixed">
                 <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-                <a href="#drawer" ng-click="dontShowControl()"><span class="icon icon-menu">show sidebar</span></a>
+                <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
                 <menu type="toolbar">
                     <a ng-click="toggleRepeat()"><span class="icon icon-repeat_{{repeatTrack}}">repeat</span></a>
                 </menu>
@@ -126,6 +128,9 @@
         <script src="bower_components/angular-gestures/gestures.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
         <script src="bower_components/angular-translate-interpolation-default/angular-translate-interpolation-default.js"></script>
+        <script src="bower_components/slider/js/bootstrap-slider.js"></script>
+        <script src="scripts/directives/volumeslider.js"></script>
+        <script src="scripts/directives/eatClick.js"></script>
         <!-- endbuild -->
 </body>
 </html>

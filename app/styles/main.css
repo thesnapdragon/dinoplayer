@@ -58,11 +58,26 @@ html, body {
 }
 
 .cover {
-    width: 240px;
-    height: 240px;
+    width: 95%;
     display: inline-block;
-  vertical-align: middle;
-  width: 240px;
+    vertical-align: middle;
+}
+
+.volumebutton {
+    background-color: #EEEEEE;
+    background-image: url(../images/volume.png);
+    background-repeat: no-repeat;
+    background-position: 0.4rem 0.4rem;
+    width: 4rem;
+    height: 4rem;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    border: 1px solid #A9A9A9;
+    margin-bottom: 2rem;
+}
+
+.volumebutton:hover {
+    background-color: #CCCCCC;
 }
 
 .dl-horizontal dt {
@@ -142,8 +157,8 @@ FIXES
     border-radius: 0px 0px 0px 0px;
     display: inline-block;
     vertical-align: middle;
-    width: 240px;
     height: 5px;
+    width: 95%;
 }
 
 .progress-success .bar, .progress .bar-success {
