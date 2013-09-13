@@ -58,11 +58,9 @@ html, body {
 }
 
 .cover {
-    width: 240px;
-    height: 240px;
+    width: 95%;
     display: inline-block;
-  vertical-align: middle;
-  width: 240px;
+    vertical-align: middle;
 }
 
 .dl-horizontal dt {
@@ -119,17 +117,9 @@ FIXES
     margin-bottom: 1rem;
 }
 
-.mediaurl-legend {
-    width: 13rem;
-}
-
-.mediaurl-section {
-    margin-left: 13rem;
-}
-
 .modal {
-    margin-left: -15rem !important;
-    width: 30rem !important;
+    margin-left: -15rem;
+    width: 30rem;
 }
 
 .modal .modal-body {
@@ -142,7 +132,7 @@ FIXES
     border-radius: 0px 0px 0px 0px;
     display: inline-block;
     vertical-align: middle;
-    width: 240px;
+    width: 95%;
     height: 5px;
 }
 

@@ -1,4 +1,4 @@
 # TODO
 
+* fix progressbar glitches
 * player background
-* volume control

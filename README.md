@@ -33,18 +33,32 @@ Copy music in your Dropbox's Public folder. Download [install.bat](https://raw.g
 
 0. Install DinoPlayer Helper ([see previous section](#install)) in your Dropbox's Public folder (where you store mp3s).
 1. Install DinoPlayer from Firefox Marketplace.
-2. Select Dropbox as your cloud storage, and type in your Public folder's ID and folder name. You can get the Public folder's ID from your Dropbox page (see [screenshot](https://github.com/thesnapdragon/dinoplayer/blob/master/screenshots/screen4.png)), or from your desktop file manager ([see example on Windows](https://github.com/thesnapdragon/dinoplayer/blob/master/screenshots/screen5.png)). You can test it with this media url (example files are from [Wait What](https://soundcloud.com/wait-what/sets/the-notorious-xx)):
+2. Select your music storage service
+3. Add a music folder
+
+When you choose *Dropbox*:
+
+Type in your Public folder's ID and folder name. You can get the Public folder's ID from your Dropbox page (see [screenshot](https://github.com/thesnapdragon/dinoplayer/blob/master/screenshots/screen4.png)), or from your desktop file manager ([see example on Windows](https://github.com/thesnapdragon/dinoplayer/blob/master/screenshots/screen5.png)). You can test it with this media url (example files are from [Wait What](https://soundcloud.com/wait-what/sets/the-notorious-xx)):
 
 ~~~
 2920832/WaitWhat
 ~~~
 
-3. Click on *Save*.
-4. Listen unlimited music from cloud (without copying it to your phone)!
+When you choose *Other web storage*:
+
+You can use any web storage, where your music is accessible on the same path (Dropbox is useable with this method too), eg.:
+
+~~~
+https://dl.dropboxusercontent.com/u/2920832/WaitWhat
+~~~
+
+4. Click on *Save*.
+5. Listen unlimited music from cloud (without copying it to your phone)!
 
 **Currently supported cloud storages:**
 
 * [Dropbox](https://www.dropbox.com/)
+* Any other web storage
 
 ## Sites
 

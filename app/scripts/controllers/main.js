@@ -134,17 +134,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $rootScope.audio.setAttribute('preload', 'auto');
         $rootScope.progressBar = [0,0];
 
-        //~ TODO: volume control
-        // Get the HTML5 range input element and append audio volum adjustement on change
-        //~ var volume = document.getElementById('volume');
-        //~ volume.addEventListener('change', function(){
-            //~ $rootScope.audio.volume = parseFloat(this.value / 10);
-        //~ }, false);
-
         // time played
         $rootScope.audio.addEventListener("timeupdate", function() {
             $rootScope.playlist[$rootScope.trackCounter].currentTime = $rootScope.audio.currentTime;
-            var play = parseInt(($rootScope.audio.currentTime/$rootScope.audio.duration)*100);
+            var play = parseInt(($rootScope.audio.currentTime / $rootScope.audio.duration) * 100);
             $rootScope.progressBar[0] = play;
             var buff = $rootScope.progressBar[1];
             if (buff + play > 100) {
@@ -161,7 +154,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
         // preloading
         $rootScope.audio.addEventListener('progress', function() {
-            var buff = parseInt(($rootScope.audio.buffered.end($rootScope.audio.buffered.length-1)/$rootScope.audio.duration)*100);
+            var buff = parseInt(($rootScope.audio.buffered.end($rootScope.audio.buffered.length - 1) / $rootScope.audio.duration) * 100);
             var play = $rootScope.progressBar[0];
             if (buff - play > 100) {
                 buff = 100 - play;
@@ -243,13 +236,9 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.backToPlayer = function(index) {
         $rootScope.trackSwitchedTo = index;
-        $scope.dontShowControl();
     };
 
     $scope.showControl = function() {
-        if ($rootScope.isControlVisible == -2) {
-            return;
-        }
         if ($rootScope.isControlVisible == undefined || $rootScope.isControlVisible == 0) {
             $rootScope.isControlVisible = 1;
             $("#overlayController").fadeIn("fast");
@@ -268,10 +257,6 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                 $rootScope.isControlVisible = 0;
             }, 3000);
         }
-    };
-
-    $scope.dontShowControl = function() {
-        $rootScope.isControlVisible = -2;
     };
 
     $scope.playTrack = function(index) {
@@ -336,6 +321,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                     $rootScope.settings.mediaurl += '/';
                 }
                 localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
+                $rootScope.isLoaded = false;
                 $scope.getPlaylist();
             } else {
                 try {
