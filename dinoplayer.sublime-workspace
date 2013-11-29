@@ -1,0 +1,451 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/chef/Egyetem/DeklaProg/gyakorlat/1/cekla_examples/allneg.cpp",
+			"settings":
+			{
+				"buffer_size": 187,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 132.0,
+		"selected_items":
+		[
+			[
+				"sy js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"lint",
+				"Preferences: SublimeLint Settings – Default"
+			],
+			[
+				"sy py",
+				"Set Syntax: Python"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"syn py",
+				"Set Syntax: Python"
+			],
+			[
+				"syn pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Remove Package"
+			],
+			[
+				"show",
+				"SublimeLint: Show All Errors"
+			],
+			[
+				"syn js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"l",
+				"SublimeLint: Previous Error"
+			],
+			[
+				"status",
+				"View: Toggle Status Bar"
+			],
+			[
+				"stat",
+				"View: Toggle Status Bar"
+			],
+			[
+				"next",
+				"SublimeLint: Next Error"
+			],
+			[
+				"error",
+				"SublimeLint: Show All Errors"
+			],
+			[
+				"lin",
+				"SublimeLint: Previous Error"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"defa",
+				"Preferences: Settings - Default"
+			],
+			[
+				"syn ma",
+				"Set Syntax: Markdown"
+			],
+			[
+				"user",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"settin",
+				"Preferences: Terminal Settings – Default"
+			],
+			[
+				"sett def",
+				"Preferences: Settings - Default"
+			],
+			[
+				"setting user",
+				"Preferences: Settings - User"
+			],
+			[
+				"syn jsc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"syn html",
+				"Set Syntax: HTML"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"enab",
+				"Package Control: Enable Package"
+			],
+			[
+				"togg",
+				"View: Toggle Minimap"
+			],
+			[
+				"toggle",
+				"View: Toggle Minimap"
+			],
+			[
+				"defaul",
+				"Preferences: Settings - Default"
+			],
+			[
+				"sett",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Preferences: Package Control Settings – User"
+			],
+			[
+				"packa",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"synta",
+				"Set Syntax: YAML"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"fgdfg",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read()) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/tmp/demo.txt",
+		"/home/chef/.config/sublime-text-3/Packages/User/SublimeLint.sublime-settings",
+		"/home/chef/projects/blog/vmi.js",
+		"/home/chef/projects/blog/vmi.rb",
+		"/home/chef/.config/sublime-text-3/Packages/sublimelint/SublimeLint.sublime-settings",
+		"/home/chef/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/chef/projects/blog/vmi.html",
+		"/home/chef/.config/sublime-text-3/Packages/User/linters/html.py",
+		"/home/chef/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/chef/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/chef/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/chef/.config/sublime-text-3/Packages/Terminal/Terminal.sublime-settings",
+		"/home/chef/templates/script.sh",
+		"/home/chef/templates/textfile",
+		"/home/chef/projects/owlcalc/test/e2e/a/test.js",
+		"/home/chef/projects/owlcalc/test/spec/controllers/main.js",
+		"/home/chef/nohup.out",
+		"/home/chef/projects/dinoplayer/Gruntfile.js",
+		"/home/chef/projects/dinoplayer/CHANGELOG.md",
+		"/home/chef/downloads/others/prog/Sublime text/crack",
+		"/home/chef/downloads/Sublime Text 3 Build 3047/Readme.txt",
+		"/home/chef/projects/dinoplayer/dinoplayer.sublime-project",
+		"/home/chef/projects/dinoplayer/.bowerrc",
+		"/home/chef/projects/dinoplayer/vmi.js",
+		"/home/chef/projects/dinoplayer/.editorconfig",
+		"/home/chef/projects/dinoplayer/app/styles/shared/util.css",
+		"/home/chef/projects/dinoplayer/app/scripts/controllers/main.js",
+		"/home/chef/projects/dinoplayer/app/index.html",
+		"/home/chef/.config/sublime-text-3/Packages/Package Control/Package Control.sublime-settings",
+		"/home/chef/projects/dinoplayer/app/manifest.webapp",
+		"/home/chef/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/chef/projects/dinoplayer/app/scripts/app.js",
+		"/home/chef/projects/dinoplayer/app/robots.txt",
+		"/home/chef/projects/dinoplayer/app/.editorconfig",
+		"/home/chef/projects/dinoplayer/app/scripts/controllers/vdfvfdv.js",
+		"/home/chef/projects/dinoplayer/app/scripts/vmi.js",
+		"/home/chef/projects/dinoplayer/app/.buildignore",
+		"/home/chef/projects/dinoplayer/app/styles/main.css",
+		"/home/chef/projects/dinoplayer/app/.htaccess",
+		"/home/chef/projects/dinoplayer/TODO.md",
+		"/home/chef/test.js",
+		"/home/chef/test2.js"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"+p",
+			"proj",
+			"switch",
+			"quick swit",
+			"stylesheet",
+			"true",
+			"exit",
+			"hot",
+			"hot exit",
+			"json",
+			"s",
+			"connect",
+			"click"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/chef/Egyetem/DeklaProg/gyakorlat/1/cekla_examples/allneg.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "/home/chef/projects/blog/blog.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"main.js",
+				"app/scripts/controllers/main.js"
+			],
+			[
+				"index",
+				"app/index.html"
+			],
+			[
+				"mani",
+				"manifest.webapp"
+			],
+			[
+				"editor",
+				".editorconfig"
+			],
+			[
+				"mai.js",
+				"scripts/controllers/main.js"
+			],
+			[
+				"main",
+				"styles/main.css"
+			],
+			[
+				"inde",
+				"app/index.html"
+			],
+			[
+				"tod",
+				"TODO.md"
+			],
+			[
+				"grunt",
+				"Gruntfile.js"
+			],
+			[
+				"grun",
+				"Gruntfile.js"
+			],
+			[
+				"in",
+				"app/index.html"
+			],
+			[
+				"",
+				"~/test.sh"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/projects/blog/blog.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

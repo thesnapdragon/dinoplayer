@@ -21,12 +21,12 @@
 
 <strong>Changes:</strong>
 <ul>
-<li>other web storage option added to services</li>
-<li>repeat song feature added</li>
-<li>loading progressbar added</li>
-<li>new play progressbar</li>
-<li>settings menu new design</li>
-<li>reload playlist & settings button moved to menu</li>
-<li>cover display is responsive</li>
-<li>minor bugfix after changing cloud storage</li>
+<li>Other web storage option added to services</li>
+<li>Repeat song feature added</li>
+<li>Loading progressbar added</li>
+<li>New play progressbar</li>
+<li>Settings menu has new design</li>
+<li>Reload playlist & settings button moved to menu</li>
+<li>Cover display is responsive</li>
+<li>Minor bugfix after changing cloud storage</li>
 </ul>

@@ -84,7 +84,7 @@ section[role="region"] > .content [data-type="list"] li > a > aside:not(.pack-en
 }
 
 [aria-disabled="true"] {
-  pointer-events: none;  
+  pointer-events: none;
 }
 
 /* Fonts */

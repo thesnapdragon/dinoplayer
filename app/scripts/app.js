@@ -7,6 +7,14 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
+            .when('/about', {
+                templateUrl: 'views/about.html',
+                controller: 'AboutCtrl'
+            })
+            .when('/howto', {
+                templateUrl: 'views/howto.html',
+                controller: 'HowtoCtrl'
+            })
                 .otherwise({
                 redirectTo: '/'
             });
@@ -15,6 +23,8 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
         $translateProvider.translations('en-US', {
             'MENU': 'Menu',
             'PLAYLIST': 'Playlist',
+            'ABOUT': 'About',
+            'HOWTO': 'How-to',
             'SETTINGS': 'Settings',
             'SAVE': 'Save',
             'WARNING': 'Warning!',
@@ -28,6 +38,18 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'HELP_PLAYPAUSE': 'Play or pause current track',
             'HELP_NEXTTRACK': 'Change to next track',
             'HELP_PREVIOUSTRACK': 'Change to previous track',
+            'VERSION': 'Version',
+            'INFORMATION': 'Information',
+            'CREATEDBY': 'Created by',
+            'CHANGELOG': 'Changelog',
+            'LICENCE': 'Licence',
+            'READMORE': 'Read more',
+            'INSTRUCTION1': 'Copy music into a public available folder (eg. Dropbox\'s Public folder)!',
+            'INSTRUCTION2': 'Install DinoPlayer Helper!',
+            'INSTRUCTION3': 'Select your music storage service in Settings! (Dropbox / Other service)',
+            'INSTRUCTION4': 'Add your music folder (see examples below)!',
+            'INSTRUCTION5': 'Save settings & enjoy the music!',
+            'MUSICFOLDER_EXAMPLES': 'Music folder examples',
             'ERROR_PLAYLIST_NOT_LOADED': 'Playlist has not been loaded!',
             'ERROR_BROWSER_NOT_SUPPORTED': 'Browser not supported!',
             'ERROR_CAN_NOT_CONNECT': 'Error while connecting!',
@@ -38,6 +60,8 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
         var huTranslation = {
             'MENU': 'Menü',
             'PLAYLIST': 'Lejátszólista',
+            'ABOUT': 'Információ',
+            'HOWTO': 'How-to',
             'SETTINGS': 'Beállítások',
             'SAVE': 'Mentés',
             'WARNING': 'Figyelem!',
@@ -51,6 +75,18 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'HELP_PLAYPAUSE': 'Aktuális szám lejátszása vagy megállítása',
             'HELP_NEXTTRACK': 'Következő szám',
             'HELP_PREVIOUSTRACK': 'Előző szám',
+            'VERSION': 'Verzió',
+            'INFORMATION': 'Információ',
+            'CREATEDBY': 'Készítette',
+            'CHANGELOG': 'Changelog',
+            'LICENCE': 'Licensz',
+            'READMORE': 'Tudj meg többet',
+            'INSTRUCTION1': 'Másolj zenét egy publikusan elérhető mappába (például Dropbox Publikus mappája)!',
+            'INSTRUCTION2': 'Telepítsd a DinoPlayer Helper-t',
+            'INSTRUCTION3': 'Válaszd ki a tárhely szolgáltatód a beállításokban (Dropbox / Más webes tárhely)!',
+            'INSTRUCTION4': 'Add meg a mappa elérési útját (lásd a lenti példákat)!',
+            'INSTRUCTION5': 'Mentsd el a beállításokat és élvezd a zenét!',
+            'MUSICFOLDER_EXAMPLES': 'Zene mappa elérési út példák',
             'ERROR_PLAYLIST_NOT_LOADED': 'A lejátszólista még nem töltődött be!',
             'ERROR_BROWSER_NOT_SUPPORTED': 'Böngésző nem támogatott!',
             'ERROR_CAN_NOT_CONNECT': 'Hiba történt a csatlakozás során!',

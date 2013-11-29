@@ -48,18 +48,25 @@
             </header>
             <nav>
                 <h2>{{ 'PLAYLIST' | translate }}</h2>
-                <ul ng-repeat="track in playlist">
-                    <li ng-click="backToPlayer($index)"><a href="#">{{track.filename}}</a></li>
+                <ul>
+                    <li ng-repeat="track in playlist" ng-click="backToPlayer($index)"><a href="#">{{track.filename}}</a></li>
+                </ul>
+                <h2>{{ 'HELP' | translate }}</h2>
+                <ul>
+                    <li><a href="#" ng-click="goToPage('about')">{{ 'ABOUT' | translate }}</a></li>
+                    <li><a href="#" ng-click="goToPage('howto')">{{ 'HOWTO' | translate }}</a></li>
+                    <li class="drawerFix"></li>
                 </ul>
             </nav>
         </section>
 
         <section id="drawer" class="skin-dark" role="region">
             <header class="fixed">
-                <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-                <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+                <a href="#" ng-hide="currentPage == 'about' || currentPage == 'howto'"><span class="icon icon-menu">hide sidebar</span></a>
+                <a href="#drawer" ng-hide="currentPage == 'about' || currentPage == 'howto'"><span class="icon icon-menu">show sidebar</span></a>
+                <a href="#" ng-show="currentPage == 'about' || currentPage == 'howto'" ng-click="goToPage('')"><span class="icon icon-back">back</span></a>
                 <menu type="toolbar">
-                    <a ng-click="toggleRepeat()"><span class="icon icon-repeat_{{repeatTrack}}">repeat</span></a>
+                    <a ng-click="toggleRepeat()" ng-hide="currentPage == 'about' || currentPage == 'howto'"><span class="icon icon-repeat_{{repeatTrack}}">repeat</span></a>
                 </menu>
                 <h1>DinoPlayer</h1>
                 <progress_loading ng-show="requestCounter > 0" max="100" value="0" class="pack-activity"></progress_loading>
@@ -126,6 +133,8 @@
         <script src="bower_components/angular-gestures/gestures.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
         <script src="bower_components/angular-translate-interpolation-default/angular-translate-interpolation-default.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/howto.js"></script>
         <!-- endbuild -->
 </body>
 </html>

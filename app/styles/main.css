@@ -76,6 +76,14 @@ html, body {
     margin-top: 15px;
 }
 
+.logo {
+    padding-top: 1rem;
+}
+
+.textBlock p, .textBlock ul, .textBlock li {
+    font-size: 1.5rem;
+}
+
 /*
 EXTENSIONS
 */
@@ -146,4 +154,12 @@ FIXES
     background-color: #999999;
     background-image: -moz-linear-gradient(center top , #999999, #888888);
     background-repeat: repeat-x;
+}
+
+section[role="region"] > header:first-child .icon.icon-back {
+    padding-left: 38px;
+}
+
+.drawerFix {
+    padding-top: 5rem;
 }

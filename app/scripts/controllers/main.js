@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', '$http', function($scope, $timeout, $rootScope, $translate, $http) {
+angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$rootScope', '$translate', '$http', '$location', function($scope, $timeout, $rootScope, $translate, $http, $location) {
 
     $scope.isSettingsVisible = false;
     $scope.settingsOptions = {
@@ -8,16 +8,24 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         dialogFade:true
     };
 
+    $rootScope.goToPage = function(page) {
+        $rootScope.currentPage = page;
+    };
+
+    $rootScope.$watch('currentPage', function() {
+        $location.path($rootScope.currentPage).search('');
+    }, true);
+
     $scope.init = function() {
         // set language
         var language = window.navigator.userLanguage || window.navigator.language;
         try {
             $translate.uses(language);
         } catch (error) {
-            $translate.uses("en-US");
+            $translate.uses('en-US');
         }
 
-        if ($rootScope.isPlaying == undefined) {
+        if ($rootScope.isPlaying === undefined) {
             $rootScope.isPlaying = false;
             $rootScope.$broadcast('controlchanged');
         }
@@ -32,35 +40,41 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         };
 
         if (typeof(Storage) !== undefined) {
-            if (localStorage.dinoPlayerHash == undefined || localStorage.dinoPlayerHash == null) {
+            if (localStorage.dinoPlayerHash === undefined || localStorage.dinoPlayerHash === null) {
                 localStorage.dinoPlayerHash = token();
             }
         } else {
             utils.status.show($translate('ERROR_BROWSER_NOT_SUPPORTED'));
         }
 
-        if ($rootScope.authHash == undefined) {
+        if ($rootScope.authHash === undefined) {
             $rootScope.authHash = localStorage.dinoPlayerHash;
         }
 
-        if ($rootScope.requestCounter == undefined) {
+        if ($rootScope.requestCounter === undefined) {
             $rootScope.requestCounter = 0;
         }
 
-        if ($rootScope.repeatTrack == undefined) {
+        if ($rootScope.repeatTrack === undefined) {
             $rootScope.repeatTrack = false;
         }
 
         // handle settings
-        if ($rootScope.settings == undefined) {
-            if (localStorage.dinoPlayerSettings != undefined) {
+        if ($rootScope.settings === undefined) {
+            if (localStorage.dinoPlayerSettings !== undefined) {
                 $rootScope.settings = JSON.parse(localStorage.dinoPlayerSettings);
             } else {
-                $rootScope.settings = { "mediaurl": "" };
+                $rootScope.settings = { 'mediaurl': '' };
             }
         }
 
-        if ($rootScope.isLoaded && $rootScope.settings.mediaurl != undefined && $rootScope.settings.mediaurl != null) {
+        // get playlist from localStorage
+        if (localStorage.dinoPlayerPlaylist !== undefined) {
+            $rootScope.playlist = JSON.parse(localStorage.dinoPlayerPlaylist);
+            $rootScope.isLoaded = true;
+        }
+
+        if ($rootScope.isLoaded && $rootScope.settings.mediaurl !== undefined && $rootScope.settings.mediaurl !== null) {
             $scope.getPlaylist();
         }
     };
@@ -80,14 +94,14 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     $scope.getPlaylist = function() {
         $rootScope.requestCounter++;
         var getplaylistparams = {'serviceurl' : $rootScope.settings.serviceurl, 'mediaurl' : $rootScope.settings.mediaurl };
-        var url = "http://dinoplayer.herokuapp.com/getTrackList?callback=JSON_CALLBACK&" + $.param(getplaylistparams);
+        var url = 'http://dinoplayer.herokuapp.com/getTrackList?callback=JSON_CALLBACK&' + $.param(getplaylistparams);
             $http.jsonp(url).
                 success(function(data) {
                     $rootScope.requestCounter--;
                     $rootScope.playlist = new Array();
                     for (var i = 0; i < data.length; i++) {
-                        var hash = {filename: data[i]};
-                        $rootScope.playlist.push(hash);
+                        var filenames = {filename: data[i]};
+                        $rootScope.playlist.push(filenames);
                     }
                     $rootScope.trackCounter = 0;
                     $rootScope.detailsFetched = false;
@@ -104,7 +118,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if ($rootScope.isPlaying) {
             $rootScope.playPause();
         }
-        if ($rootScope.settings.mediaurl == "") {
+        if ($rootScope.settings.mediaurl === '') {
             utils.status.show($translate('ERROR_NO_MEDIAURL'));
         } else {
             $scope.getPlaylist();
@@ -135,7 +149,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $rootScope.progressBar = [0,0];
 
         // time played
-        $rootScope.audio.addEventListener("timeupdate", function() {
+        $rootScope.audio.addEventListener('timeupdate', function() {
             $rootScope.playlist[$rootScope.trackCounter].currentTime = $rootScope.audio.currentTime;
             var play = parseInt(($rootScope.audio.currentTime / $rootScope.audio.duration) * 100);
             $rootScope.progressBar[0] = play;
@@ -149,6 +163,8 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         // duration
         $rootScope.audio.addEventListener('loadedmetadata', function() {
             $rootScope.playlist[$rootScope.trackCounter].length = $rootScope.audio.duration;
+            // save the playlist
+            localStorage.dinoPlayerPlaylist = JSON.stringify($rootScope.playlist);
             $scope.$apply();
         }, false);
 
@@ -195,7 +211,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
                 $rootScope.requestCounter++;
                 var getcoverparams = {'artist' : $rootScope.playlist[$rootScope.trackCounter].details.artist,
                     'album' : $rootScope.playlist[$rootScope.trackCounter].details.album};
-                var url = "http://dinoplayer.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&" + $.param(getcoverparams);
+                var url = 'http://dinoplayer.herokuapp.com/getTrackCover?callback=JSON_CALLBACK&' + $.param(getcoverparams);
                 $http.jsonp(url).
                     success(function(data) {
                         $rootScope.requestCounter--;
@@ -215,16 +231,16 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         if (!$rootScope.isLoaded || $rootScope.isLoaded == undefined || $rootScope.detailsFetched) return;
         $rootScope.requestCounter++;
         var getdetailsparams = { "hash" : $rootScope.authHash };
-        var url = "http://dinoplayer.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&" + $.param(getdetailsparams);
+        var url = 'http://dinoplayer.herokuapp.com/getTrackDetails?callback=JSON_CALLBACK&' + $.param(getdetailsparams);
         $http.jsonp(url).
-                    success(function(data) {
-                        $rootScope.requestCounter--;
-                        $scope.getTrackDetails(data);
-                    }).
-                    error(function(data, status, headers, config) {
-                        $rootScope.requestCounter--;
-                        utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
-                    });
+            success(function(data) {
+                $rootScope.requestCounter--;
+                $scope.getTrackDetails(data);
+            }).
+            error(function(data, status, headers, config) {
+                $rootScope.requestCounter--;
+                utils.status.show($translate('ERROR_CAN_NOT_CONNECT'));
+            });
     };
 
     $scope.getCover = function(cover) {
@@ -239,21 +255,22 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
     };
 
     $scope.showControl = function() {
+        if ($rootScope.currentPage == 'about' || $rootScope.currentPage == 'howto') return;
         if ($rootScope.isControlVisible == undefined || $rootScope.isControlVisible == 0) {
             $rootScope.isControlVisible = 1;
-            $("#overlayController").fadeIn("fast");
+            $('#overlayController').fadeIn('fast');
             $scope.timeoutId = $timeout(function() {
-                $("#overlayController").fadeOut("fast");
+                $('#overlayController').fadeOut('fast');
                 $rootScope.isControlVisible = 0;
             }, 4000);
         } else if ($rootScope.isControlVisible == 1) {
-            $("#overlayController").fadeOut("fast");
+            $('#overlayController').fadeOut('fast');
             $rootScope.isControlVisible = 0;
         } else {
-            $timeout.cancel($scope.timeoutId );
+            $timeout.cancel($scope.timeoutId);
             $rootScope.isControlVisible = 1;
             $timeout(function() {
-                $("#overlayController").fadeOut("fast");
+                $('#overlayController').fadeOut('fast');
                 $rootScope.isControlVisible = 0;
             }, 3000);
         }
@@ -301,7 +318,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
 
     $scope.openSettings = function() {
         $scope.lastSettings = JSON.stringify($rootScope.settings);
-        if (localStorage.dinoPlayerSettings == undefined) {
+        if (localStorage.dinoPlayerSettings === undefined) {
             localStorage.dinoPlayerSettings = JSON.stringify($rootScope.settings);
         }
         try {
@@ -338,10 +355,10 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
         $rootScope.settings.mediaurl = "";
         switch(service) {
             case 'dropbox':
-                $rootScope.settings.serviceurl = "https://dl.dropboxusercontent.com/u/";
+                $rootScope.settings.serviceurl = 'https://dl.dropboxusercontent.com/u/';
                 break;
             case 'other':
-                $rootScope.settings.serviceurl = "";
+                $rootScope.settings.serviceurl = '';
                 break;
             }
     };
