@@ -30,3 +30,13 @@
 <li>Cover display is responsive</li>
 <li>Minor bugfix after changing cloud storage</li>
 </ul>
+
+# 1.4
+
+<strong>Changes:</strong>
+<ul>
+<li>Playlist and tracks saved to phone</li>
+<li>How-to menu item added</li>
+<li>About menu item added with contact, licence, changelog, infos</li>
+<li>Fixed: Menu last item not shows problem</li>
+</ul>

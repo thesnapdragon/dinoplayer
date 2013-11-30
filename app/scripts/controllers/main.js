@@ -74,7 +74,7 @@ angular.module('dinoplayerApp').controller('MainCtrl', ['$scope', '$timeout', '$
             $rootScope.isLoaded = true;
         }
 
-        if ($rootScope.isLoaded && $rootScope.settings.mediaurl !== undefined && $rootScope.settings.mediaurl !== null) {
+        if (!$rootScope.isLoaded && $rootScope.settings.mediaurl !== undefined && $rootScope.settings.mediaurl !== null) {
             $scope.getPlaylist();
         }
     };

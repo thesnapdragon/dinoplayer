@@ -1,5 +1,5 @@
 {
-    "version": "1.3",
+    "version": "1.4",
     "name": "DinoPlayerTest",
     "launch_path": "/index.html",
     "description": "Simple HTM5 touchscreen-based streaming music player using cloud storages (e.g.: Dropbox)",

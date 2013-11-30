@@ -15,7 +15,7 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
                 templateUrl: 'views/howto.html',
                 controller: 'HowtoCtrl'
             })
-                .otherwise({
+            .otherwise({
                 redirectTo: '/'
             });
     })
@@ -49,12 +49,14 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'INSTRUCTION3': 'Select your music storage service in Settings! (Dropbox / Other service)',
             'INSTRUCTION4': 'Add your music folder (see examples below)!',
             'INSTRUCTION5': 'Save settings & enjoy the music!',
+            'EXAMPLE_DROPBOX': 'If you use Dropbox to store your mp3 files you can use this option to set your music folder. You have to type only the music folder\'s ID and its path, these you can get from the folder\'s Public link. Example:',
+            'EXAMPLE_SERVICE_OTHER': 'Set the public available link of your music folder where you store mp3 files and installed DinoPlayer Helper. Example:',
             'MUSICFOLDER_EXAMPLES': 'Music folder examples',
             'ERROR_PLAYLIST_NOT_LOADED': 'Playlist has not been loaded!',
             'ERROR_BROWSER_NOT_SUPPORTED': 'Browser not supported!',
             'ERROR_CAN_NOT_CONNECT': 'Error while connecting!',
-            'ERROR_PARSING_SETTINGS': 'Error while pasing settings',
-            'ERROR_NO_MEDIAURL': 'Please add a music folder first'
+            'ERROR_PARSING_SETTINGS': 'Error while parssing settings!',
+            'ERROR_NO_MEDIAURL': 'Please add a music folder first!'
         });
 
         var huTranslation = {
@@ -71,7 +73,7 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'SERVICE_SELECT': 'Válaszd ki a tárhely szolgáltatód: ',
             'SERVICE_OTHER': 'Más webes tárhely',
             'MEDIA_SELECT': 'Add meg a mappa elérési útját: ',
-            'HELP': 'Súgó',
+            'HELP': 'Segítség',
             'HELP_PLAYPAUSE': 'Aktuális szám lejátszása vagy megállítása',
             'HELP_NEXTTRACK': 'Következő szám',
             'HELP_PREVIOUSTRACK': 'Előző szám',
@@ -86,12 +88,14 @@ angular.module('dinoplayerApp', ['ui.bootstrap', 'pascalprecht.translate', 'angu
             'INSTRUCTION3': 'Válaszd ki a tárhely szolgáltatód a beállításokban (Dropbox / Más webes tárhely)!',
             'INSTRUCTION4': 'Add meg a mappa elérési útját (lásd a lenti példákat)!',
             'INSTRUCTION5': 'Mentsd el a beállításokat és élvezd a zenét!',
+            'EXAMPLE_DROPBOX': 'Ha Dropbox-ot használsz zenéid tárolására, akkor válaszd ezt az opciót. Ebben az esetben csak a mappa Dropbox-os azonosítóját és az elérési útját kell megadni, amit a publikus linkből lehet megszerezni. Példa:',
+            'EXAMPLE_SERVICE_OTHER': 'Ebben az esetben a publikusan elérhető zene mappa linkjét kell megadni, ahová a DinoPlayer-t is telepítetted. Példa:',
             'MUSICFOLDER_EXAMPLES': 'Zene mappa elérési út példák',
             'ERROR_PLAYLIST_NOT_LOADED': 'A lejátszólista még nem töltődött be!',
             'ERROR_BROWSER_NOT_SUPPORTED': 'Böngésző nem támogatott!',
             'ERROR_CAN_NOT_CONNECT': 'Hiba történt a csatlakozás során!',
-            'ERROR_PARSING_SETTINGS': 'Hiba történt a beállítások olvasásánál',
-            'ERROR_NO_MEDIAURL': 'Kérlek adj hozzá először egy zenemappát'
+            'ERROR_PARSING_SETTINGS': 'Hiba történt a beállítások olvasásánál!',
+            'ERROR_NO_MEDIAURL': 'Kérlek adj hozzá először egy zenemappát!'
         };
         $translateProvider.translations('hu', huTranslation);
         $translateProvider.translations('hu-HU', huTranslation);

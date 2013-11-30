@@ -80,6 +80,10 @@ html, body {
     padding-top: 1rem;
 }
 
+.textBlock {
+    text-align: justify !important;
+}
+
 .textBlock p, .textBlock ul, .textBlock li {
     font-size: 1.5rem;
 }
